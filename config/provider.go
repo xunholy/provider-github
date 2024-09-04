@@ -24,7 +24,6 @@ import (
 	"github.com/xunholy/provider-github/config/branchprotectionv3"
 	"github.com/xunholy/provider-github/config/emugroupmapping"
 	"github.com/xunholy/provider-github/config/enterpriseorganization"
-	"github.com/xunholy/provider-github/config/issuelabel"
 	"github.com/xunholy/provider-github/config/issuelabels"
 	"github.com/xunholy/provider-github/config/membership"
 	"github.com/xunholy/provider-github/config/organizationruleset"
@@ -82,7 +81,6 @@ func GetProvider() *ujconfig.Provider {
 		branchprotectionv3.Configure,
 		emugroupmapping.Configure,
 		enterpriseorganization.Configure,
-		issuelabel.Configure,
 		issuelabels.Configure,
 		membership.Configure,
 		organizationruleset.Configure,

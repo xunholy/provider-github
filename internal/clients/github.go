@@ -25,11 +25,80 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal github credentials as JSON"
+	errInvalidConfig        = "invalid provider configuration"
 
-	keyBaseURL = "base_url"
-	keyOwner   = "owner"
-	keyToken   = "token"
+	// provider config keys
+	keyBaseURL         = "base_url"
+	keyOwner           = "owner"
+	keyToken           = "token"
+	keyAppAuth         = "app_auth"
+	keyWriteDelayMs    = "write_delay_ms"
+	keyReadDelayMs     = "read_delay_ms"
+	keyRetryDelayMs    = "retry_delay_ms"
+	keyMaxRetries      = "max_retries"
+	keyRetryableErrors = "retryable_errors"
 )
+
+type appAuth struct {
+	ID             string `json:"id"`
+	InstallationID string `json:"installation_id"`
+	PemFile        string `json:"pem_file"`
+}
+
+type githubConfig struct {
+	BaseURL         *string    `json:"base_url,omitempty"`
+	Owner           *string    `json:"owner,omitempty"`
+	Token           *string    `json:"token,omitempty"`
+	AppAuth         *[]appAuth `json:"app_auth,omitempty"`
+	WriteDelayMs    *int       `json:"write_delay_ms,omitempty"`
+	ReadDelayMs     *int       `json:"read_delay_ms,omitempty"`
+	RetryDelayMs    *int       `json:"retry_delay_ms,omitempty"`
+	MaxRetries      *int       `json:"max_retries,omitempty"`
+	RetryableErrors []int      `json:"retryable_errors,omitempty"`
+}
+
+func (c *githubConfig) UnmarshalJSON(data []byte) error {
+	type Alias githubConfig
+	aux := &struct {
+		*Alias
+	}{
+		Alias: (*Alias)(c),
+	}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	// Set default values here if needed
+	if c.MaxRetries == nil {
+		defaultMaxRetries := 3
+		c.MaxRetries = &defaultMaxRetries
+	}
+	return nil
+}
+
+func (c githubConfig) validate() error {
+	if c.Token == nil && c.AppAuth == nil {
+		return errors.New("either token or app_auth must be provided")
+	}
+	return nil
+}
+
+func (c githubConfig) getStringValue(key string) string {
+	switch key {
+	case keyBaseURL:
+		if c.BaseURL != nil {
+			return *c.BaseURL
+		}
+	case keyOwner:
+		if c.Owner != nil {
+			return *c.Owner
+		}
+	case keyToken:
+		if c.Token != nil {
+			return *c.Token
+		}
+	}
+	return ""
+}
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
@@ -61,22 +130,46 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		creds := map[string]string{}
-		if err := json.Unmarshal(data, &creds); err != nil {
+
+		config := &githubConfig{}
+		if err := json.Unmarshal(data, config); err != nil {
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
+		}
+
+		if err := config.validate(); err != nil {
+			return ps, errors.Wrap(err, errInvalidConfig)
 		}
 
 		// Set credentials in Terraform provider configuration.
 		ps.Configuration = map[string]any{}
-		if v, ok := creds[keyBaseURL]; ok {
+		if v := config.getStringValue(keyBaseURL); v != "" {
 			ps.Configuration[keyBaseURL] = v
 		}
-		if v, ok := creds[keyOwner]; ok {
+		if v := config.getStringValue(keyOwner); v != "" {
 			ps.Configuration[keyOwner] = v
 		}
-		if v, ok := creds[keyToken]; ok {
+		if v := config.getStringValue(keyToken); v != "" {
 			ps.Configuration[keyToken] = v
 		}
+		if config.AppAuth != nil {
+			ps.Configuration[keyAppAuth] = *config.AppAuth
+		}
+		if config.WriteDelayMs != nil {
+			ps.Configuration[keyWriteDelayMs] = *config.WriteDelayMs
+		}
+		if config.ReadDelayMs != nil {
+			ps.Configuration[keyReadDelayMs] = *config.ReadDelayMs
+		}
+		if config.RetryDelayMs != nil {
+			ps.Configuration[keyRetryDelayMs] = *config.RetryDelayMs
+		}
+		if config.MaxRetries != nil {
+			ps.Configuration[keyMaxRetries] = *config.MaxRetries
+		}
+		if len(config.RetryableErrors) > 0 {
+			ps.Configuration[keyRetryableErrors] = config.RetryableErrors
+		}
+
 		return ps, nil
 	}
 }

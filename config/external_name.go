@@ -23,7 +23,6 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"github_branch_protection_v3":             config.IdentifierFromProvider,
 	"github_emu_group_mapping":                config.IdentifierFromProvider,
 	"github_enterprise_organization":          config.IdentifierFromProvider,
-	"github_issue_label":                      config.IdentifierFromProvider,
 	"github_issue_labels":                     config.IdentifierFromProvider,
 	"github_membership":                       config.IdentifierFromProvider,
 	"github_organization_ruleset":             config.IdentifierFromProvider,

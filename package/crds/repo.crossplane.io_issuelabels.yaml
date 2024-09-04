@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: labels.repo.crossplane.io
+  name: issuelabels.repo.crossplane.io
 spec:
   group: repo.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - github
-    kind: Labels
-    listKind: LabelsList
-    plural: labels
-    singular: labels
+    kind: IssueLabels
+    listKind: IssueLabelsList
+    plural: issuelabels
+    singular: issuelabels
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Labels is the Schema for the Labelss API. Provides GitHub issue
-          labels resource.
+        description: IssueLabels is the Schema for the IssueLabelss API. Provides
+          GitHub issue labels resource.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: LabelsSpec defines the desired state of Labels
+            description: IssueLabelsSpec defines the desired state of IssueLabels
             properties:
               deletionPolicy:
                 default: Delete
@@ -313,7 +313,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.repository)
                 || (has(self.initProvider) && has(self.initProvider.repository))'
           status:
-            description: LabelsStatus defines the observed state of Labels.
+            description: IssueLabelsStatus defines the observed state of IssueLabels.
             properties:
               atProvider:
                 properties:

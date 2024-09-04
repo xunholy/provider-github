@@ -28,10 +28,7 @@ func (tr *DeployKey) Hub() {}
 func (tr *Environment) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Label) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Labels) Hub() {}
+func (tr *IssueLabels) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *PullRequest) Hub() {}

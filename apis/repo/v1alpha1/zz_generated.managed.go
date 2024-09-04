@@ -428,123 +428,63 @@ func (mg *Environment) SetWriteConnectionSecretToReference(r *xpv1.SecretReferen
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Label.
-func (mg *Label) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this IssueLabels.
+func (mg *IssueLabels) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Label.
-func (mg *Label) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this IssueLabels.
+func (mg *IssueLabels) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Label.
-func (mg *Label) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this IssueLabels.
+func (mg *IssueLabels) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Label.
-func (mg *Label) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this IssueLabels.
+func (mg *IssueLabels) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Label.
-func (mg *Label) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this IssueLabels.
+func (mg *IssueLabels) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Label.
-func (mg *Label) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this IssueLabels.
+func (mg *IssueLabels) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Label.
-func (mg *Label) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this IssueLabels.
+func (mg *IssueLabels) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Label.
-func (mg *Label) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this IssueLabels.
+func (mg *IssueLabels) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Label.
-func (mg *Label) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this IssueLabels.
+func (mg *IssueLabels) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Label.
-func (mg *Label) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this IssueLabels.
+func (mg *IssueLabels) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Label.
-func (mg *Label) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this IssueLabels.
+func (mg *IssueLabels) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Label.
-func (mg *Label) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
-	mg.Spec.WriteConnectionSecretToReference = r
-}
-
-// GetCondition of this Labels.
-func (mg *Labels) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetDeletionPolicy of this Labels.
-func (mg *Labels) GetDeletionPolicy() xpv1.DeletionPolicy {
-	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Labels.
-func (mg *Labels) GetManagementPolicies() xpv1.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
-// GetProviderConfigReference of this Labels.
-func (mg *Labels) GetProviderConfigReference() *xpv1.Reference {
-	return mg.Spec.ProviderConfigReference
-}
-
-// GetPublishConnectionDetailsTo of this Labels.
-func (mg *Labels) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
-// GetWriteConnectionSecretToReference of this Labels.
-func (mg *Labels) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
-	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Labels.
-func (mg *Labels) SetConditions(c ...xpv1.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetDeletionPolicy of this Labels.
-func (mg *Labels) SetDeletionPolicy(r xpv1.DeletionPolicy) {
-	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Labels.
-func (mg *Labels) SetManagementPolicies(r xpv1.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
-}
-
-// SetProviderConfigReference of this Labels.
-func (mg *Labels) SetProviderConfigReference(r *xpv1.Reference) {
-	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this Labels.
-func (mg *Labels) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
-}
-
-// SetWriteConnectionSecretToReference of this Labels.
-func (mg *Labels) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this IssueLabels.
+func (mg *IssueLabels) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

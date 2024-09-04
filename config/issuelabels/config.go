@@ -6,6 +6,7 @@ import "github.com/crossplane/upjet/pkg/config"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_issue_labels", func(r *config.Resource) {
 
+		r.Kind = "IssueLabels"
 		r.ShortGroup = "repo"
 
 		r.References["repository "] = config.Reference{

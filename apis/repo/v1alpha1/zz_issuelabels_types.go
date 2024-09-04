@@ -13,17 +13,40 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type LabelsInitParameters struct {
+type IssueLabelsInitParameters struct {
 
 	// List of labels
-	Label []LabelsLabelInitParameters `json:"label,omitempty" tf:"label,omitempty"`
+	Label []LabelInitParameters `json:"label,omitempty" tf:"label,omitempty"`
 
 	// The GitHub repository
 	// The GitHub repository.
 	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
 }
 
-type LabelsLabelInitParameters struct {
+type IssueLabelsObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// List of labels
+	Label []LabelObservation `json:"label,omitempty" tf:"label,omitempty"`
+
+	// The GitHub repository
+	// The GitHub repository.
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+}
+
+type IssueLabelsParameters struct {
+
+	// List of labels
+	// +kubebuilder:validation:Optional
+	Label []LabelParameters `json:"label,omitempty" tf:"label,omitempty"`
+
+	// The GitHub repository
+	// The GitHub repository.
+	// +kubebuilder:validation:Optional
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+}
+
+type LabelInitParameters struct {
 
 	// A 6 character hex code, without the leading #, identifying the color of the label.
 	// A 6 character hex code, without the leading '#', identifying the color of the label.
@@ -38,7 +61,7 @@ type LabelsLabelInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
-type LabelsLabelObservation struct {
+type LabelObservation struct {
 
 	// A 6 character hex code, without the leading #, identifying the color of the label.
 	// A 6 character hex code, without the leading '#', identifying the color of the label.
@@ -57,7 +80,7 @@ type LabelsLabelObservation struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
-type LabelsLabelParameters struct {
+type LabelParameters struct {
 
 	// A 6 character hex code, without the leading #, identifying the color of the label.
 	// A 6 character hex code, without the leading '#', identifying the color of the label.
@@ -75,33 +98,10 @@ type LabelsLabelParameters struct {
 	Name *string `json:"name" tf:"name,omitempty"`
 }
 
-type LabelsObservation struct {
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// List of labels
-	Label []LabelsLabelObservation `json:"label,omitempty" tf:"label,omitempty"`
-
-	// The GitHub repository
-	// The GitHub repository.
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-}
-
-type LabelsParameters struct {
-
-	// List of labels
-	// +kubebuilder:validation:Optional
-	Label []LabelsLabelParameters `json:"label,omitempty" tf:"label,omitempty"`
-
-	// The GitHub repository
-	// The GitHub repository.
-	// +kubebuilder:validation:Optional
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-}
-
-// LabelsSpec defines the desired state of Labels
-type LabelsSpec struct {
+// IssueLabelsSpec defines the desired state of IssueLabels
+type IssueLabelsSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     LabelsParameters `json:"forProvider"`
+	ForProvider     IssueLabelsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -112,50 +112,50 @@ type LabelsSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider LabelsInitParameters `json:"initProvider,omitempty"`
+	InitProvider IssueLabelsInitParameters `json:"initProvider,omitempty"`
 }
 
-// LabelsStatus defines the observed state of Labels.
-type LabelsStatus struct {
+// IssueLabelsStatus defines the observed state of IssueLabels.
+type IssueLabelsStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        LabelsObservation `json:"atProvider,omitempty"`
+	AtProvider        IssueLabelsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Labels is the Schema for the Labelss API. Provides GitHub issue labels resource.
+// IssueLabels is the Schema for the IssueLabelss API. Provides GitHub issue labels resource.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,github}
-type Labels struct {
+type IssueLabels struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.repository) || (has(self.initProvider) && has(self.initProvider.repository))",message="spec.forProvider.repository is a required parameter"
-	Spec   LabelsSpec   `json:"spec"`
-	Status LabelsStatus `json:"status,omitempty"`
+	Spec   IssueLabelsSpec   `json:"spec"`
+	Status IssueLabelsStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// LabelsList contains a list of Labelss
-type LabelsList struct {
+// IssueLabelsList contains a list of IssueLabelss
+type IssueLabelsList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Labels `json:"items"`
+	Items           []IssueLabels `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Labels_Kind             = "Labels"
-	Labels_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Labels_Kind}.String()
-	Labels_KindAPIVersion   = Labels_Kind + "." + CRDGroupVersion.String()
-	Labels_GroupVersionKind = CRDGroupVersion.WithKind(Labels_Kind)
+	IssueLabels_Kind             = "IssueLabels"
+	IssueLabels_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: IssueLabels_Kind}.String()
+	IssueLabels_KindAPIVersion   = IssueLabels_Kind + "." + CRDGroupVersion.String()
+	IssueLabels_GroupVersionKind = CRDGroupVersion.WithKind(IssueLabels_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Labels{}, &LabelsList{})
+	SchemeBuilder.Register(&IssueLabels{}, &IssueLabelsList{})
 }
