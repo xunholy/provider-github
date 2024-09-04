@@ -2145,6 +2145,16 @@ func (in *FileParameters) DeepCopyInto(out *FileParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.BranchRef != nil {
+		in, out := &in.BranchRef, &out.BranchRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BranchSelector != nil {
+		in, out := &in.BranchSelector, &out.BranchSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.CommitAuthor != nil {
 		in, out := &in.CommitAuthor, &out.CommitAuthor
 		*out = new(string)

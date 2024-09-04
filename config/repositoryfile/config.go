@@ -11,8 +11,8 @@ func Configure(p *config.Provider) {
 		r.References["repository"] = config.Reference{
 			Type: "github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository",
 		}
-		// r.References["branch"] = config.Reference{
-		// 	Type: "github.com/xunholy/provider-github/apis/branch/v1alpha1.Branch",
-		// }
+		r.References["branch"] = config.Reference{
+			Type: "github.com/xunholy/provider-github/apis/repo/v1alpha1.Branch",
+		}
 	})
 }

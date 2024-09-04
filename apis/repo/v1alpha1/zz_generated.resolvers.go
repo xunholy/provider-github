@@ -89,6 +89,22 @@ func (mg *File) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Branch),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.BranchRef,
+		Selector:     mg.Spec.ForProvider.BranchSelector,
+		To: reference.To{
+			List:    &BranchList{},
+			Managed: &Branch{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Branch")
+	}
+	mg.Spec.ForProvider.Branch = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BranchRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.RepositoryRef,

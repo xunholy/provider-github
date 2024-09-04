@@ -87,8 +87,17 @@ type FileParameters struct {
 	// Git branch (defaults to the repository's default branch).
 	// The branch must already exist, it will not be created if it does not already exist.
 	// The branch name, defaults to the repository's default branch
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Branch
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Reference to a Branch in repo to populate branch.
+	// +kubebuilder:validation:Optional
+	BranchRef *v1.Reference `json:"branchRef,omitempty" tf:"-"`
+
+	// Selector for a Branch in repo to populate branch.
+	// +kubebuilder:validation:Optional
+	BranchSelector *v1.Selector `json:"branchSelector,omitempty" tf:"-"`
 
 	// Committer author name to use. NOTE: GitHub app users may omit author and email information so GitHub can verify commits as the GitHub App. This maybe useful when a branch protection rule requires signed commits.
 	// The commit author name, defaults to the authenticated user's name. GitHub app users may omit author and email information so GitHub can verify commits as the GitHub App.

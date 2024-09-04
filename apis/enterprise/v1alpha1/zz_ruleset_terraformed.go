@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this OrganizationRuleset
-func (mg *OrganizationRuleset) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this Ruleset
+func (mg *Ruleset) GetTerraformResourceType() string {
 	return "github_organization_ruleset"
 }
 
-// GetConnectionDetailsMapping for this OrganizationRuleset
-func (tr *OrganizationRuleset) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this Ruleset
+func (tr *Ruleset) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this OrganizationRuleset
-func (tr *OrganizationRuleset) GetObservation() (map[string]any, error) {
+// GetObservation of this Ruleset
+func (tr *Ruleset) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *OrganizationRuleset) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this OrganizationRuleset
-func (tr *OrganizationRuleset) SetObservation(obs map[string]any) error {
+// SetObservation for this Ruleset
+func (tr *Ruleset) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *OrganizationRuleset) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this OrganizationRuleset
-func (tr *OrganizationRuleset) GetID() string {
+// GetID returns ID of underlying Terraform resource of this Ruleset
+func (tr *Ruleset) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this OrganizationRuleset
-func (tr *OrganizationRuleset) GetParameters() (map[string]any, error) {
+// GetParameters of this Ruleset
+func (tr *Ruleset) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *OrganizationRuleset) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this OrganizationRuleset
-func (tr *OrganizationRuleset) SetParameters(params map[string]any) error {
+// SetParameters for this Ruleset
+func (tr *Ruleset) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *OrganizationRuleset) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this OrganizationRuleset
-func (tr *OrganizationRuleset) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this Ruleset
+func (tr *Ruleset) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *OrganizationRuleset) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this OrganizationRuleset
-func (tr *OrganizationRuleset) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this Ruleset
+func (tr *Ruleset) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *OrganizationRuleset) GetMergedParameters(shouldMergeInitProvider bool)
 	return params, nil
 }
 
-// LateInitialize this OrganizationRuleset using its observed tfState.
+// LateInitialize this Ruleset using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *OrganizationRuleset) LateInitialize(attrs []byte) (bool, error) {
-	params := &OrganizationRulesetParameters{}
+func (tr *Ruleset) LateInitialize(attrs []byte) (bool, error) {
+	params := &RulesetParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *OrganizationRuleset) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *OrganizationRuleset) GetTerraformSchemaVersion() int {
+func (tr *Ruleset) GetTerraformSchemaVersion() int {
 	return 1
 }

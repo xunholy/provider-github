@@ -279,85 +279,6 @@ type ConditionsParameters struct {
 	RepositoryName []RepositoryNameParameters `json:"repositoryName,omitempty" tf:"repository_name,omitempty"`
 }
 
-type OrganizationRulesetInitParameters struct {
-
-	// The actors that can bypass the rules in this ruleset.
-	BypassActors []BypassActorsInitParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
-
-	// Parameters for an organization ruleset condition. `ref_name` is required alongside one of `repository_name` or `repository_id`.
-	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
-
-	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
-	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
-
-	// The name of the ruleset.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// Rules within the ruleset.
-	Rules []RulesInitParameters `json:"rules,omitempty" tf:"rules,omitempty"`
-
-	// Possible values are `branch` and `tag`.
-	Target *string `json:"target,omitempty" tf:"target,omitempty"`
-}
-
-type OrganizationRulesetObservation struct {
-
-	// The actors that can bypass the rules in this ruleset.
-	BypassActors []BypassActorsObservation `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
-
-	// Parameters for an organization ruleset condition. `ref_name` is required alongside one of `repository_name` or `repository_id`.
-	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
-
-	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
-	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
-
-	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
-
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// The name of the ruleset.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// GraphQL global node id for use with v4 API.
-	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
-
-	// Rules within the ruleset.
-	Rules []RulesObservation `json:"rules,omitempty" tf:"rules,omitempty"`
-
-	// GitHub ID for the ruleset.
-	RulesetID *float64 `json:"rulesetId,omitempty" tf:"ruleset_id,omitempty"`
-
-	// Possible values are `branch` and `tag`.
-	Target *string `json:"target,omitempty" tf:"target,omitempty"`
-}
-
-type OrganizationRulesetParameters struct {
-
-	// The actors that can bypass the rules in this ruleset.
-	// +kubebuilder:validation:Optional
-	BypassActors []BypassActorsParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
-
-	// Parameters for an organization ruleset condition. `ref_name` is required alongside one of `repository_name` or `repository_id`.
-	// +kubebuilder:validation:Optional
-	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
-
-	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
-	// +kubebuilder:validation:Optional
-	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
-
-	// The name of the ruleset.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// Rules within the ruleset.
-	// +kubebuilder:validation:Optional
-	Rules []RulesParameters `json:"rules,omitempty" tf:"rules,omitempty"`
-
-	// Possible values are `branch` and `tag`.
-	// +kubebuilder:validation:Optional
-	Target *string `json:"target,omitempty" tf:"target,omitempty"`
-}
-
 type PullRequestInitParameters struct {
 
 	// New, reviewable commits pushed will dismiss previous pull request review approvals. Defaults to `false`.
@@ -750,6 +671,85 @@ type RulesParameters struct {
 	Update *bool `json:"update,omitempty" tf:"update,omitempty"`
 }
 
+type RulesetInitParameters struct {
+
+	// The actors that can bypass the rules in this ruleset.
+	BypassActors []BypassActorsInitParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
+
+	// Parameters for an organization ruleset condition. `ref_name` is required alongside one of `repository_name` or `repository_id`.
+	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
+	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
+
+	// The name of the ruleset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Rules within the ruleset.
+	Rules []RulesInitParameters `json:"rules,omitempty" tf:"rules,omitempty"`
+
+	// Possible values are `branch` and `tag`.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type RulesetObservation struct {
+
+	// The actors that can bypass the rules in this ruleset.
+	BypassActors []BypassActorsObservation `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
+
+	// Parameters for an organization ruleset condition. `ref_name` is required alongside one of `repository_name` or `repository_id`.
+	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
+	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
+
+	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The name of the ruleset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// GraphQL global node id for use with v4 API.
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+
+	// Rules within the ruleset.
+	Rules []RulesObservation `json:"rules,omitempty" tf:"rules,omitempty"`
+
+	// GitHub ID for the ruleset.
+	RulesetID *float64 `json:"rulesetId,omitempty" tf:"ruleset_id,omitempty"`
+
+	// Possible values are `branch` and `tag`.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type RulesetParameters struct {
+
+	// The actors that can bypass the rules in this ruleset.
+	// +kubebuilder:validation:Optional
+	BypassActors []BypassActorsParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
+
+	// Parameters for an organization ruleset condition. `ref_name` is required alongside one of `repository_name` or `repository_id`.
+	// +kubebuilder:validation:Optional
+	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
+	// +kubebuilder:validation:Optional
+	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
+
+	// The name of the ruleset.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Rules within the ruleset.
+	// +kubebuilder:validation:Optional
+	Rules []RulesParameters `json:"rules,omitempty" tf:"rules,omitempty"`
+
+	// Possible values are `branch` and `tag`.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
 type TagNamePatternInitParameters struct {
 
 	// How this rule will appear to users.
@@ -799,10 +799,10 @@ type TagNamePatternParameters struct {
 	Pattern *string `json:"pattern" tf:"pattern,omitempty"`
 }
 
-// OrganizationRulesetSpec defines the desired state of OrganizationRuleset
-type OrganizationRulesetSpec struct {
+// RulesetSpec defines the desired state of Ruleset
+type RulesetSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     OrganizationRulesetParameters `json:"forProvider"`
+	ForProvider     RulesetParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -813,53 +813,53 @@ type OrganizationRulesetSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider OrganizationRulesetInitParameters `json:"initProvider,omitempty"`
+	InitProvider RulesetInitParameters `json:"initProvider,omitempty"`
 }
 
-// OrganizationRulesetStatus defines the observed state of OrganizationRuleset.
-type OrganizationRulesetStatus struct {
+// RulesetStatus defines the observed state of Ruleset.
+type RulesetStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        OrganizationRulesetObservation `json:"atProvider,omitempty"`
+	AtProvider        RulesetObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// OrganizationRuleset is the Schema for the OrganizationRulesets API. <no value>
+// Ruleset is the Schema for the Rulesets API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,github}
-type OrganizationRuleset struct {
+type Ruleset struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enforcement) || (has(self.initProvider) && has(self.initProvider.enforcement))",message="spec.forProvider.enforcement is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rules) || (has(self.initProvider) && has(self.initProvider.rules))",message="spec.forProvider.rules is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.target) || (has(self.initProvider) && has(self.initProvider.target))",message="spec.forProvider.target is a required parameter"
-	Spec   OrganizationRulesetSpec   `json:"spec"`
-	Status OrganizationRulesetStatus `json:"status,omitempty"`
+	Spec   RulesetSpec   `json:"spec"`
+	Status RulesetStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// OrganizationRulesetList contains a list of OrganizationRulesets
-type OrganizationRulesetList struct {
+// RulesetList contains a list of Rulesets
+type RulesetList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []OrganizationRuleset `json:"items"`
+	Items           []Ruleset `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	OrganizationRuleset_Kind             = "OrganizationRuleset"
-	OrganizationRuleset_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: OrganizationRuleset_Kind}.String()
-	OrganizationRuleset_KindAPIVersion   = OrganizationRuleset_Kind + "." + CRDGroupVersion.String()
-	OrganizationRuleset_GroupVersionKind = CRDGroupVersion.WithKind(OrganizationRuleset_Kind)
+	Ruleset_Kind             = "Ruleset"
+	Ruleset_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Ruleset_Kind}.String()
+	Ruleset_KindAPIVersion   = Ruleset_Kind + "." + CRDGroupVersion.String()
+	Ruleset_GroupVersionKind = CRDGroupVersion.WithKind(Ruleset_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&OrganizationRuleset{}, &OrganizationRulesetList{})
+	SchemeBuilder.Register(&Ruleset{}, &RulesetList{})
 }

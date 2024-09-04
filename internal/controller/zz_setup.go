@@ -18,7 +18,7 @@ import (
 	secret "github.com/xunholy/provider-github/internal/controller/actions/secret"
 	variable "github.com/xunholy/provider-github/internal/controller/actions/variable"
 	organization "github.com/xunholy/provider-github/internal/controller/enterprise/organization"
-	organizationruleset "github.com/xunholy/provider-github/internal/controller/enterprise/organizationruleset"
+	ruleset "github.com/xunholy/provider-github/internal/controller/enterprise/ruleset"
 	membership "github.com/xunholy/provider-github/internal/controller/github/membership"
 	providerconfig "github.com/xunholy/provider-github/internal/controller/providerconfig"
 	branch "github.com/xunholy/provider-github/internal/controller/repo/branch"
@@ -30,7 +30,7 @@ import (
 	repository "github.com/xunholy/provider-github/internal/controller/repo/repository"
 	repositoryautolinkreference "github.com/xunholy/provider-github/internal/controller/repo/repositoryautolinkreference"
 	repositorywebhook "github.com/xunholy/provider-github/internal/controller/repo/repositorywebhook"
-	ruleset "github.com/xunholy/provider-github/internal/controller/repo/ruleset"
+	rulesetrepo "github.com/xunholy/provider-github/internal/controller/repo/ruleset"
 	emugroupmapping "github.com/xunholy/provider-github/internal/controller/team/emugroupmapping"
 	members "github.com/xunholy/provider-github/internal/controller/team/members"
 	team "github.com/xunholy/provider-github/internal/controller/team/team"
@@ -53,7 +53,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		secret.Setup,
 		variable.Setup,
 		organization.Setup,
-		organizationruleset.Setup,
+		ruleset.Setup,
 		membership.Setup,
 		providerconfig.Setup,
 		branch.Setup,
@@ -66,7 +66,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		repositoryautolinkreference.Setup,
 		repositorywebhook.Setup,
 		repositorywebhook.Setup,
-		ruleset.Setup,
+		rulesetrepo.Setup,
 		emugroupmapping.Setup,
 		members.Setup,
 		team.Setup,

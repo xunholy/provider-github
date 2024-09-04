@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: organizationrulesets.enterprise.crossplane.io
+  name: rulesets.enterprise.crossplane.io
 spec:
   group: enterprise.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - github
-    kind: OrganizationRuleset
-    listKind: OrganizationRulesetList
-    plural: organizationrulesets
-    singular: organizationruleset
+    kind: Ruleset
+    listKind: RulesetList
+    plural: rulesets
+    singular: ruleset
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: OrganizationRuleset is the Schema for the OrganizationRulesets
-          API. <no value>
+        description: Ruleset is the Schema for the Rulesets API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -55,7 +54,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: OrganizationRulesetSpec defines the desired state of OrganizationRuleset
+            description: RulesetSpec defines the desired state of Ruleset
             properties:
               deletionPolicy:
                 default: Delete
@@ -931,7 +930,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.target)
                 || (has(self.initProvider) && has(self.initProvider.target))'
           status:
-            description: OrganizationRulesetStatus defines the observed state of OrganizationRuleset.
+            description: RulesetStatus defines the observed state of Ruleset.
             properties:
               atProvider:
                 properties:
