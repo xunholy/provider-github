@@ -16,9 +16,6 @@ func (tr *Members) Hub() {}
 func (tr *Membership) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Repository) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Settings) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -26,3 +23,6 @@ func (tr *SyncGroupMapping) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Team) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TeamRepository) Hub() {}

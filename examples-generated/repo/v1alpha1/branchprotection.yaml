@@ -67,7 +67,7 @@ spec:
 ---
 
 apiVersion: team.crossplane.io/v1alpha1
-kind: Repository
+kind: TeamRepository
 metadata:
   annotations:
     meta.upbound.io/example-id: repo/v1alpha1/branchprotection

@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: repositories.team.crossplane.io
+  name: teamrepositories.team.crossplane.io
 spec:
   group: team.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - github
-    kind: Repository
-    listKind: RepositoryList
-    plural: repositories
-    singular: repository
+    kind: TeamRepository
+    listKind: TeamRepositoryList
+    plural: teamrepositories
+    singular: teamrepository
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Repository is the Schema for the Repositorys API. Manages the
-          associations between teams and repositories.
+        description: TeamRepository is the Schema for the TeamRepositorys API. Manages
+          the associations between teams and repositories.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: RepositorySpec defines the desired state of Repository
+            description: TeamRepositorySpec defines the desired state of TeamRepository
             properties:
               deletionPolicy:
                 default: Delete
@@ -584,7 +584,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: RepositoryStatus defines the observed state of Repository.
+            description: TeamRepositoryStatus defines the observed state of TeamRepository.
             properties:
               atProvider:
                 properties:

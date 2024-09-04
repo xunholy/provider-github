@@ -13,7 +13,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type RepositoryInitParameters struct {
+type TeamRepositoryInitParameters struct {
 
 	// The permissions of team members regarding the repository.
 	// Must be one of pull, triage, push, maintain, admin or the name of an existing custom repository role within the organisation. Defaults to pull.
@@ -47,7 +47,7 @@ type RepositoryInitParameters struct {
 	TeamIDSelector *v1.Selector `json:"teamIdSelector,omitempty" tf:"-"`
 }
 
-type RepositoryObservation struct {
+type TeamRepositoryObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -66,7 +66,7 @@ type RepositoryObservation struct {
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 }
 
-type RepositoryParameters struct {
+type TeamRepositoryParameters struct {
 
 	// The permissions of team members regarding the repository.
 	// Must be one of pull, triage, push, maintain, admin or the name of an existing custom repository role within the organisation. Defaults to pull.
@@ -103,10 +103,10 @@ type RepositoryParameters struct {
 	TeamIDSelector *v1.Selector `json:"teamIdSelector,omitempty" tf:"-"`
 }
 
-// RepositorySpec defines the desired state of Repository
-type RepositorySpec struct {
+// TeamRepositorySpec defines the desired state of TeamRepository
+type TeamRepositorySpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RepositoryParameters `json:"forProvider"`
+	ForProvider     TeamRepositoryParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -117,49 +117,49 @@ type RepositorySpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RepositoryInitParameters `json:"initProvider,omitempty"`
+	InitProvider TeamRepositoryInitParameters `json:"initProvider,omitempty"`
 }
 
-// RepositoryStatus defines the observed state of Repository.
-type RepositoryStatus struct {
+// TeamRepositoryStatus defines the observed state of TeamRepository.
+type TeamRepositoryStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RepositoryObservation `json:"atProvider,omitempty"`
+	AtProvider        TeamRepositoryObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Repository is the Schema for the Repositorys API. Manages the associations between teams and repositories.
+// TeamRepository is the Schema for the TeamRepositorys API. Manages the associations between teams and repositories.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,github}
-type Repository struct {
+type TeamRepository struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              RepositorySpec   `json:"spec"`
-	Status            RepositoryStatus `json:"status,omitempty"`
+	Spec              TeamRepositorySpec   `json:"spec"`
+	Status            TeamRepositoryStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// RepositoryList contains a list of Repositorys
-type RepositoryList struct {
+// TeamRepositoryList contains a list of TeamRepositorys
+type TeamRepositoryList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Repository `json:"items"`
+	Items           []TeamRepository `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Repository_Kind             = "Repository"
-	Repository_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Repository_Kind}.String()
-	Repository_KindAPIVersion   = Repository_Kind + "." + CRDGroupVersion.String()
-	Repository_GroupVersionKind = CRDGroupVersion.WithKind(Repository_Kind)
+	TeamRepository_Kind             = "TeamRepository"
+	TeamRepository_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: TeamRepository_Kind}.String()
+	TeamRepository_KindAPIVersion   = TeamRepository_Kind + "." + CRDGroupVersion.String()
+	TeamRepository_GroupVersionKind = CRDGroupVersion.WithKind(TeamRepository_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Repository{}, &RepositoryList{})
+	SchemeBuilder.Register(&TeamRepository{}, &TeamRepositoryList{})
 }
