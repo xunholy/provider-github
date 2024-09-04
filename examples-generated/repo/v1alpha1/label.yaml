@@ -1,0 +1,13 @@
+apiVersion: repo.crossplane.io/v1alpha1
+kind: Label
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/label
+  labels:
+    testing.upbound.io/example-name: test_repo
+  name: test-repo
+spec:
+  forProvider:
+    color: FF0000
+    name: Urgent
+    repository: test-repo
