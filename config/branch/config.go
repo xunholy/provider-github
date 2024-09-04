@@ -2,6 +2,7 @@ package branch
 
 import "github.com/crossplane/upjet/pkg/config"
 
+// Configure github_branch resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_branch", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for

@@ -4,12 +4,13 @@ import (
 	"github.com/crossplane/upjet/pkg/config"
 )
 
+// Configure github_repository_deploy_key resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_repository_deploy_key", func(r *config.Resource) {
 		r.ShortGroup = "repo"
 
 		r.References["repository"] = config.Reference{
-			TerraformName: "github_repository",
+			Type: "github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository",
 		}
 
 		r.TerraformResource.Schema["key"].Required = true

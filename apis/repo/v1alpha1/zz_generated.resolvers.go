@@ -36,64 +36,6 @@ func (mg *Branch) ResolveReferences(ctx context.Context, c client.Reader) error 
 	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.RepositoryRef,
-		Selector:     mg.Spec.InitProvider.RepositorySelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.Repository")
-	}
-	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
-
-	return nil
-}
-
-// ResolveReferences of this BranchProtection.
-func (mg *BranchProtection) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
-
-	var rsp reference.ResolutionResponse
-	var err error
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RepositoryID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.RepositoryIDRef,
-		Selector:     mg.Spec.ForProvider.RepositoryIDSelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.RepositoryID")
-	}
-	mg.Spec.ForProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.RepositoryIDRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RepositoryID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.RepositoryIDRef,
-		Selector:     mg.Spec.InitProvider.RepositoryIDSelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.RepositoryID")
-	}
-	mg.Spec.InitProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RepositoryIDRef = rsp.ResolvedReference
-
 	return nil
 }
 
@@ -162,21 +104,47 @@ func (mg *File) ResolveReferences(ctx context.Context, c client.Reader) error {
 	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
 
+	return nil
+}
+
+// ResolveReferences of this Protection.
+func (mg *Protection) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RepositoryID),
 		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.RepositoryRef,
-		Selector:     mg.Spec.InitProvider.RepositorySelector,
+		Reference:    mg.Spec.ForProvider.RepositoryIDRef,
+		Selector:     mg.Spec.ForProvider.RepositoryIDSelector,
 		To: reference.To{
 			List:    &RepositoryList{},
 			Managed: &Repository{},
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.Repository")
+		return errors.Wrap(err, "mg.Spec.ForProvider.RepositoryID")
 	}
-	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RepositoryIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RepositoryID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.RepositoryIDRef,
+		Selector:     mg.Spec.InitProvider.RepositoryIDSelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RepositoryID")
+	}
+	mg.Spec.InitProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RepositoryIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -278,22 +246,6 @@ func (mg *RepositoryAutolinkReference) ResolveReferences(ctx context.Context, c 
 	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
 
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.RepositoryRef,
-		Selector:     mg.Spec.InitProvider.RepositorySelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.Repository")
-	}
-	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
-
 	return nil
 }
 
@@ -319,22 +271,6 @@ func (mg *RepositoryWebhook) ResolveReferences(ctx context.Context, c client.Rea
 	}
 	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.RepositoryRef,
-		Selector:     mg.Spec.InitProvider.RepositorySelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.Repository")
-	}
-	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
 
 	return nil
 }

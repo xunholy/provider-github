@@ -1,8 +1,8 @@
 apiVersion: repo.crossplane.io/v1alpha1
-kind: BranchProtection
+kind: Protection
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/branchprotection
+    meta.upbound.io/example-id: repo/v1alpha1/protection
   labels:
     testing.upbound.io/example-name: example
   name: example
@@ -42,13 +42,12 @@ apiVersion: repo.crossplane.io/v1alpha1
 kind: Repository
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/branchprotection
+    meta.upbound.io/example-id: repo/v1alpha1/protection
   labels:
     testing.upbound.io/example-name: example
   name: example
 spec:
-  forProvider:
-    name: test
+  forProvider: {}
 
 ---
 
@@ -56,7 +55,7 @@ apiVersion: team.crossplane.io/v1alpha1
 kind: Team
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/branchprotection
+    meta.upbound.io/example-id: repo/v1alpha1/protection
   labels:
     testing.upbound.io/example-name: example
   name: example
@@ -70,7 +69,7 @@ apiVersion: team.crossplane.io/v1alpha1
 kind: TeamRepository
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/branchprotection
+    meta.upbound.io/example-id: repo/v1alpha1/protection
   labels:
     testing.upbound.io/example-name: example
   name: example

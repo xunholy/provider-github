@@ -66,7 +66,7 @@ type ConfigurationParameters struct {
 	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
-type RepositoryWebhookInitParameters struct {
+type RepositoryWebhookInitParameters_2 struct {
 
 	// Indicate if the webhook should receive events. Defaults to true.
 	// Indicate if the webhook should receive events. Defaults to 'true'.
@@ -80,22 +80,9 @@ type RepositoryWebhookInitParameters struct {
 	// A list of events which should trigger the webhook
 	// +listType=set
 	Events []*string `json:"events,omitempty" tf:"events,omitempty"`
-
-	// The repository of the webhook.
-	// The repository of the webhook.
-	// +crossplane:generate:reference:type=Repository
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-
-	// Reference to a Repository to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
-
-	// Selector for a Repository to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 }
 
-type RepositoryWebhookObservation struct {
+type RepositoryWebhookObservation_2 struct {
 
 	// Indicate if the webhook should receive events. Defaults to true.
 	// Indicate if the webhook should receive events. Defaults to 'true'.
@@ -123,7 +110,7 @@ type RepositoryWebhookObservation struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
-type RepositoryWebhookParameters struct {
+type RepositoryWebhookParameters_2 struct {
 
 	// Indicate if the webhook should receive events. Defaults to true.
 	// Indicate if the webhook should receive events. Defaults to 'true'.
@@ -159,7 +146,7 @@ type RepositoryWebhookParameters struct {
 // RepositoryWebhookSpec defines the desired state of RepositoryWebhook
 type RepositoryWebhookSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RepositoryWebhookParameters `json:"forProvider"`
+	ForProvider     RepositoryWebhookParameters_2 `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -170,13 +157,13 @@ type RepositoryWebhookSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RepositoryWebhookInitParameters `json:"initProvider,omitempty"`
+	InitProvider RepositoryWebhookInitParameters_2 `json:"initProvider,omitempty"`
 }
 
 // RepositoryWebhookStatus defines the observed state of RepositoryWebhook.
 type RepositoryWebhookStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RepositoryWebhookObservation `json:"atProvider,omitempty"`
+	AtProvider        RepositoryWebhookObservation_2 `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this RepositoryWebhook
-func (mg *RepositoryWebhook) GetTerraformResourceType() string {
-	return "github_repository_webhook"
+// GetTerraformResourceType returns Terraform resource type for this Protection
+func (mg *Protection) GetTerraformResourceType() string {
+	return "github_branch_protection"
 }
 
-// GetConnectionDetailsMapping for this RepositoryWebhook
-func (tr *RepositoryWebhook) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"configuration[*].secret": "configuration[*].secretSecretRef", "configuration[*].url": "configuration[*].urlSecretRef"}
+// GetConnectionDetailsMapping for this Protection
+func (tr *Protection) GetConnectionDetailsMapping() map[string]string {
+	return nil
 }
 
-// GetObservation of this RepositoryWebhook
-func (tr *RepositoryWebhook) GetObservation() (map[string]any, error) {
+// GetObservation of this Protection
+func (tr *Protection) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *RepositoryWebhook) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this RepositoryWebhook
-func (tr *RepositoryWebhook) SetObservation(obs map[string]any) error {
+// SetObservation for this Protection
+func (tr *Protection) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *RepositoryWebhook) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this RepositoryWebhook
-func (tr *RepositoryWebhook) GetID() string {
+// GetID returns ID of underlying Terraform resource of this Protection
+func (tr *Protection) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this RepositoryWebhook
-func (tr *RepositoryWebhook) GetParameters() (map[string]any, error) {
+// GetParameters of this Protection
+func (tr *Protection) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *RepositoryWebhook) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this RepositoryWebhook
-func (tr *RepositoryWebhook) SetParameters(params map[string]any) error {
+// SetParameters for this Protection
+func (tr *Protection) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *RepositoryWebhook) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this RepositoryWebhook
-func (tr *RepositoryWebhook) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this Protection
+func (tr *Protection) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *RepositoryWebhook) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this RepositoryWebhook
-func (tr *RepositoryWebhook) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this Protection
+func (tr *Protection) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *RepositoryWebhook) GetMergedParameters(shouldMergeInitProvider bool) (
 	return params, nil
 }
 
-// LateInitialize this RepositoryWebhook using its observed tfState.
+// LateInitialize this Protection using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *RepositoryWebhook) LateInitialize(attrs []byte) (bool, error) {
-	params := &RepositoryWebhookParameters_2{}
+func (tr *Protection) LateInitialize(attrs []byte) (bool, error) {
+	params := &ProtectionParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *RepositoryWebhook) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *RepositoryWebhook) GetTerraformSchemaVersion() int {
-	return 1
+func (tr *Protection) GetTerraformSchemaVersion() int {
+	return 2
 }

@@ -31,8 +31,10 @@ import (
 	"github.com/xunholy/provider-github/config/repositoryfile"
 	"github.com/xunholy/provider-github/config/repositorypullrequest"
 	"github.com/xunholy/provider-github/config/repositoryruleset"
+	"github.com/xunholy/provider-github/config/repositorytagprotection"
 	"github.com/xunholy/provider-github/config/repositorywebhook"
 	"github.com/xunholy/provider-github/config/team"
+	"github.com/xunholy/provider-github/config/teammembers"
 	"github.com/xunholy/provider-github/config/teammembership"
 	"github.com/xunholy/provider-github/config/teamrepository"
 	"github.com/xunholy/provider-github/config/teamsettings"
@@ -71,7 +73,8 @@ func GetProvider() *ujconfig.Provider {
 		actionssecret.Configure,
 		actionsvariable.Configure,
 		branch.Configure,
-		// branchdefault.Configure, # TODO: Investigate
+		// TODO: Investigate why it's breaking deepcopy
+		// branchdefault.Configure,
 		branchprotection.Configure,
 		branchprotectionv3.Configure,
 		emugroupmapping.Configure,
@@ -84,8 +87,10 @@ func GetProvider() *ujconfig.Provider {
 		repositoryfile.Configure,
 		repositorypullrequest.Configure,
 		repositoryruleset.Configure,
+		repositorytagprotection.Configure,
 		repositorywebhook.Configure,
 		team.Configure,
+		teammembers.Configure,
 		teammembership.Configure,
 		teamrepository.Configure,
 		teamsettings.Configure,

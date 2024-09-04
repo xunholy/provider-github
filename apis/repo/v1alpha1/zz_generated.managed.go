@@ -68,66 +68,6 @@ func (mg *Branch) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this BranchProtection.
-func (mg *BranchProtection) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetDeletionPolicy of this BranchProtection.
-func (mg *BranchProtection) GetDeletionPolicy() xpv1.DeletionPolicy {
-	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this BranchProtection.
-func (mg *BranchProtection) GetManagementPolicies() xpv1.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
-// GetProviderConfigReference of this BranchProtection.
-func (mg *BranchProtection) GetProviderConfigReference() *xpv1.Reference {
-	return mg.Spec.ProviderConfigReference
-}
-
-// GetPublishConnectionDetailsTo of this BranchProtection.
-func (mg *BranchProtection) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
-// GetWriteConnectionSecretToReference of this BranchProtection.
-func (mg *BranchProtection) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
-	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this BranchProtection.
-func (mg *BranchProtection) SetConditions(c ...xpv1.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetDeletionPolicy of this BranchProtection.
-func (mg *BranchProtection) SetDeletionPolicy(r xpv1.DeletionPolicy) {
-	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this BranchProtection.
-func (mg *BranchProtection) SetManagementPolicies(r xpv1.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
-}
-
-// SetProviderConfigReference of this BranchProtection.
-func (mg *BranchProtection) SetProviderConfigReference(r *xpv1.Reference) {
-	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this BranchProtection.
-func (mg *BranchProtection) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
-}
-
-// SetWriteConnectionSecretToReference of this BranchProtection.
-func (mg *BranchProtection) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
-	mg.Spec.WriteConnectionSecretToReference = r
-}
-
 // GetCondition of this BranchProtectionV3.
 func (mg *BranchProtectionV3) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -305,6 +245,66 @@ func (mg *File) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo
 
 // SetWriteConnectionSecretToReference of this File.
 func (mg *File) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this Protection.
+func (mg *Protection) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this Protection.
+func (mg *Protection) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this Protection.
+func (mg *Protection) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this Protection.
+func (mg *Protection) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this Protection.
+func (mg *Protection) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this Protection.
+func (mg *Protection) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this Protection.
+func (mg *Protection) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this Protection.
+func (mg *Protection) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this Protection.
+func (mg *Protection) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this Protection.
+func (mg *Protection) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this Protection.
+func (mg *Protection) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this Protection.
+func (mg *Protection) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

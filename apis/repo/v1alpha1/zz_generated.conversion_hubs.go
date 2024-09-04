@@ -10,9 +10,6 @@ package v1alpha1
 func (tr *Branch) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *BranchProtection) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *BranchProtectionV3) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -20,6 +17,9 @@ func (tr *DeployKey) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *File) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Protection) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *PullRequest) Hub() {}

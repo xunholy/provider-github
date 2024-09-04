@@ -2,7 +2,7 @@ package actionsorganizationpermissions
 
 import "github.com/crossplane/upjet/pkg/config"
 
-// Configure github_actions_secret resource.
+// Configure github_actions_organization_permissions resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_actions_organization_permissions", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for

@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: branchprotections.repo.crossplane.io
+  name: protections.repo.crossplane.io
 spec:
   group: repo.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - github
-    kind: BranchProtection
-    listKind: BranchProtectionList
-    plural: branchprotections
-    singular: branchprotection
+    kind: Protection
+    listKind: ProtectionList
+    plural: protections
+    singular: protection
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: BranchProtection is the Schema for the BranchProtections API.
-          Protects a GitHub branch.
+        description: Protection is the Schema for the Protections API. Protects a
+          GitHub branch.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: BranchProtectionSpec defines the desired state of BranchProtection
+            description: ProtectionSpec defines the desired state of Protection
             properties:
               deletionPolicy:
                 default: Delete
@@ -699,7 +699,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.pattern)
                 || (has(self.initProvider) && has(self.initProvider.pattern))'
           status:
-            description: BranchProtectionStatus defines the observed state of BranchProtection.
+            description: ProtectionStatus defines the observed state of Protection.
             properties:
               atProvider:
                 properties:

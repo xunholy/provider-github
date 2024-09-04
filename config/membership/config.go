@@ -2,7 +2,7 @@ package membership
 
 import "github.com/crossplane/upjet/pkg/config"
 
-// Configure configures individual resources by adding custom ResourceConfigurators.
+// Configure github_membership resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_membership", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for

@@ -2,6 +2,7 @@ package repositoryruleset
 
 import "github.com/crossplane/upjet/pkg/config"
 
+// Configure github_repository_ruleset resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_repository_ruleset", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for

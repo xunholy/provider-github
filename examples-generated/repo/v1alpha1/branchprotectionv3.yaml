@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     branch: main
-    repository: example
+    repository: ${github_repository.example.name}
     restrictions:
     - users:
       - foo-user

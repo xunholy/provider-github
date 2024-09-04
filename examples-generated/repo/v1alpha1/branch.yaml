@@ -8,7 +8,6 @@ metadata:
   name: development
 spec:
   forProvider:
-    branch: development
     repositorySelector:
       matchLabels:
         testing.upbound.io/example-name: example

@@ -13,7 +13,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type BranchProtectionInitParameters struct {
+type ProtectionInitParameters struct {
 
 	// Boolean, setting this to true to allow the branch to be deleted.
 	// Setting this to 'true' to allow the branch to be deleted.
@@ -78,7 +78,7 @@ type BranchProtectionInitParameters struct {
 	RestrictPushes []RestrictPushesInitParameters `json:"restrictPushes,omitempty" tf:"restrict_pushes,omitempty"`
 }
 
-type BranchProtectionObservation struct {
+type ProtectionObservation struct {
 
 	// Boolean, setting this to true to allow the branch to be deleted.
 	// Setting this to 'true' to allow the branch to be deleted.
@@ -136,7 +136,7 @@ type BranchProtectionObservation struct {
 	RestrictPushes []RestrictPushesObservation `json:"restrictPushes,omitempty" tf:"restrict_pushes,omitempty"`
 }
 
-type BranchProtectionParameters struct {
+type ProtectionParameters struct {
 
 	// Boolean, setting this to true to allow the branch to be deleted.
 	// Setting this to 'true' to allow the branch to be deleted.
@@ -399,10 +399,10 @@ type RestrictPushesParameters struct {
 	PushAllowances []*string `json:"pushAllowances,omitempty" tf:"push_allowances,omitempty"`
 }
 
-// BranchProtectionSpec defines the desired state of BranchProtection
-type BranchProtectionSpec struct {
+// ProtectionSpec defines the desired state of Protection
+type ProtectionSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     BranchProtectionParameters `json:"forProvider"`
+	ForProvider     ProtectionParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -413,50 +413,50 @@ type BranchProtectionSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider BranchProtectionInitParameters `json:"initProvider,omitempty"`
+	InitProvider ProtectionInitParameters `json:"initProvider,omitempty"`
 }
 
-// BranchProtectionStatus defines the observed state of BranchProtection.
-type BranchProtectionStatus struct {
+// ProtectionStatus defines the observed state of Protection.
+type ProtectionStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        BranchProtectionObservation `json:"atProvider,omitempty"`
+	AtProvider        ProtectionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// BranchProtection is the Schema for the BranchProtections API. Protects a GitHub branch.
+// Protection is the Schema for the Protections API. Protects a GitHub branch.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,github}
-type BranchProtection struct {
+type Protection struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.pattern) || (has(self.initProvider) && has(self.initProvider.pattern))",message="spec.forProvider.pattern is a required parameter"
-	Spec   BranchProtectionSpec   `json:"spec"`
-	Status BranchProtectionStatus `json:"status,omitempty"`
+	Spec   ProtectionSpec   `json:"spec"`
+	Status ProtectionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// BranchProtectionList contains a list of BranchProtections
-type BranchProtectionList struct {
+// ProtectionList contains a list of Protections
+type ProtectionList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []BranchProtection `json:"items"`
+	Items           []Protection `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	BranchProtection_Kind             = "BranchProtection"
-	BranchProtection_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: BranchProtection_Kind}.String()
-	BranchProtection_KindAPIVersion   = BranchProtection_Kind + "." + CRDGroupVersion.String()
-	BranchProtection_GroupVersionKind = CRDGroupVersion.WithKind(BranchProtection_Kind)
+	Protection_Kind             = "Protection"
+	Protection_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Protection_Kind}.String()
+	Protection_KindAPIVersion   = Protection_Kind + "." + CRDGroupVersion.String()
+	Protection_GroupVersionKind = CRDGroupVersion.WithKind(Protection_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&BranchProtection{}, &BranchProtectionList{})
+	SchemeBuilder.Register(&Protection{}, &ProtectionList{})
 }

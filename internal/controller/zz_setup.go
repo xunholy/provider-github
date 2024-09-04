@@ -22,16 +22,17 @@ import (
 	membership "github.com/xunholy/provider-github/internal/controller/github/membership"
 	providerconfig "github.com/xunholy/provider-github/internal/controller/providerconfig"
 	branch "github.com/xunholy/provider-github/internal/controller/repo/branch"
-	branchprotection "github.com/xunholy/provider-github/internal/controller/repo/branchprotection"
 	branchprotectionv3 "github.com/xunholy/provider-github/internal/controller/repo/branchprotectionv3"
 	deploykey "github.com/xunholy/provider-github/internal/controller/repo/deploykey"
 	file "github.com/xunholy/provider-github/internal/controller/repo/file"
+	protection "github.com/xunholy/provider-github/internal/controller/repo/protection"
 	pullrequest "github.com/xunholy/provider-github/internal/controller/repo/pullrequest"
 	repository "github.com/xunholy/provider-github/internal/controller/repo/repository"
 	repositoryautolinkreference "github.com/xunholy/provider-github/internal/controller/repo/repositoryautolinkreference"
 	repositorywebhook "github.com/xunholy/provider-github/internal/controller/repo/repositorywebhook"
 	ruleset "github.com/xunholy/provider-github/internal/controller/repo/ruleset"
 	emugroupmapping "github.com/xunholy/provider-github/internal/controller/team/emugroupmapping"
+	members "github.com/xunholy/provider-github/internal/controller/team/members"
 	team "github.com/xunholy/provider-github/internal/controller/team/team"
 	teammembership "github.com/xunholy/provider-github/internal/controller/team/teammembership"
 	teamrepository "github.com/xunholy/provider-github/internal/controller/team/teamrepository"
@@ -56,16 +57,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		membership.Setup,
 		providerconfig.Setup,
 		branch.Setup,
-		branchprotection.Setup,
 		branchprotectionv3.Setup,
 		deploykey.Setup,
 		file.Setup,
+		protection.Setup,
 		pullrequest.Setup,
 		repository.Setup,
 		repositoryautolinkreference.Setup,
 		repositorywebhook.Setup,
+		repositorywebhook.Setup,
 		ruleset.Setup,
 		emugroupmapping.Setup,
+		members.Setup,
 		team.Setup,
 		teammembership.Setup,
 		teamrepository.Setup,

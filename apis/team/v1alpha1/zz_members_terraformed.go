@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this BranchProtection
-func (mg *BranchProtection) GetTerraformResourceType() string {
-	return "github_branch_protection"
+// GetTerraformResourceType returns Terraform resource type for this Members
+func (mg *Members) GetTerraformResourceType() string {
+	return "github_team_members"
 }
 
-// GetConnectionDetailsMapping for this BranchProtection
-func (tr *BranchProtection) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this Members
+func (tr *Members) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this BranchProtection
-func (tr *BranchProtection) GetObservation() (map[string]any, error) {
+// GetObservation of this Members
+func (tr *Members) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *BranchProtection) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this BranchProtection
-func (tr *BranchProtection) SetObservation(obs map[string]any) error {
+// SetObservation for this Members
+func (tr *Members) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *BranchProtection) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this BranchProtection
-func (tr *BranchProtection) GetID() string {
+// GetID returns ID of underlying Terraform resource of this Members
+func (tr *Members) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this BranchProtection
-func (tr *BranchProtection) GetParameters() (map[string]any, error) {
+// GetParameters of this Members
+func (tr *Members) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *BranchProtection) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this BranchProtection
-func (tr *BranchProtection) SetParameters(params map[string]any) error {
+// SetParameters for this Members
+func (tr *Members) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *BranchProtection) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this BranchProtection
-func (tr *BranchProtection) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this Members
+func (tr *Members) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *BranchProtection) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this BranchProtection
-func (tr *BranchProtection) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this Members
+func (tr *Members) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *BranchProtection) GetMergedParameters(shouldMergeInitProvider bool) (m
 	return params, nil
 }
 
-// LateInitialize this BranchProtection using its observed tfState.
+// LateInitialize this Members using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *BranchProtection) LateInitialize(attrs []byte) (bool, error) {
-	params := &BranchProtectionParameters{}
+func (tr *Members) LateInitialize(attrs []byte) (bool, error) {
+	params := &MembersParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *BranchProtection) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *BranchProtection) GetTerraformSchemaVersion() int {
-	return 2
+func (tr *Members) GetTerraformSchemaVersion() int {
+	return 0
 }

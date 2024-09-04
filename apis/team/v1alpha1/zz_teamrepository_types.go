@@ -19,32 +19,6 @@ type TeamRepositoryInitParameters struct {
 	// Must be one of pull, triage, push, maintain, admin or the name of an existing custom repository role within the organisation. Defaults to pull.
 	// The permissions of team members regarding the repository. Must be one of 'pull', 'triage', 'push', 'maintain', 'admin' or the name of an existing custom repository role within the organisation.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
-
-	// The repository to add to the team.
-	// The repository to add to the team.
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-
-	// Reference to a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
-
-	// Selector for a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
-
-	// The GitHub team id or the GitHub team slug
-	// ID or slug of team
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/team/v1alpha1.Team
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
-
-	// Reference to a Team in team to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamIDRef *v1.Reference `json:"teamIdRef,omitempty" tf:"-"`
-
-	// Selector for a Team in team to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamIDSelector *v1.Selector `json:"teamIdSelector,omitempty" tf:"-"`
 }
 
 type TeamRepositoryObservation struct {

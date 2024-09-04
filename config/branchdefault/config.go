@@ -2,6 +2,7 @@ package branchdefault
 
 import "github.com/crossplane/upjet/pkg/config"
 
+// Configure github_branch_default resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_branch_default", func(r *config.Resource) {
 		// We need to override the default group that upjet generated for
@@ -16,7 +17,7 @@ func Configure(p *config.Provider) {
 			Type: "github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository",
 		}
 		r.References["branch"] = config.Reference{
-			TerraformName: "github_branch",
+			Type: "github.com/xunholy/provider-github/apis/repo/v1alpha1.Branch",
 		}
 	})
 }

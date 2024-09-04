@@ -4,7 +4,7 @@ import (
 	"github.com/crossplane/upjet/pkg/config"
 )
 
-// Configure github_emu_group_mapping resources
+// Configure github_emu_group_mapping resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_emu_group_mapping", func(r *config.Resource) {
 		r.Kind = "EmuGroupMapping"

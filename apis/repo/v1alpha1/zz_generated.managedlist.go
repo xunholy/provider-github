@@ -17,15 +17,6 @@ func (l *BranchList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this BranchProtectionList.
-func (l *BranchProtectionList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this BranchProtectionV3List.
 func (l *BranchProtectionV3List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -46,6 +37,15 @@ func (l *DeployKeyList) GetItems() []resource.Managed {
 
 // GetItems of this FileList.
 func (l *FileList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ProtectionList.
+func (l *ProtectionList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

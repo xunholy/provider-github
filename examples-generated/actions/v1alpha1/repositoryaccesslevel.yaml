@@ -25,5 +25,4 @@ metadata:
   name: example
 spec:
   forProvider:
-    name: my-repository
     visibility: private
