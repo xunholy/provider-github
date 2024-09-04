@@ -19,6 +19,9 @@ func (tr *BranchProtection) Hub() {}
 func (tr *BranchProtectionv3) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DefaultBranch) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DeployKey) Hub() {}
 
 // Hub marks this type as a conversion hub.

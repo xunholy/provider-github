@@ -6,6 +6,7 @@ import "github.com/crossplane/upjet/pkg/config"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_branch_default", func(r *config.Resource) {
 
+		r.Kind = "DefaultBranch"
 		r.ShortGroup = "repo"
 
 		r.References["repository"] = config.Reference{

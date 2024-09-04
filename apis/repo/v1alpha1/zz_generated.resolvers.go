@@ -107,6 +107,48 @@ func (mg *BranchProtection) ResolveReferences(ctx context.Context, c client.Read
 	return nil
 }
 
+// ResolveReferences of this DefaultBranch.
+func (mg *DefaultBranch) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Branch),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.BranchRef,
+		Selector:     mg.Spec.ForProvider.BranchSelector,
+		To: reference.To{
+			List:    &BranchList{},
+			Managed: &Branch{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Branch")
+	}
+	mg.Spec.ForProvider.Branch = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BranchRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Branch),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.BranchRef,
+		Selector:     mg.Spec.InitProvider.BranchSelector,
+		To: reference.To{
+			List:    &BranchList{},
+			Managed: &Branch{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Branch")
+	}
+	mg.Spec.InitProvider.Branch = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.BranchRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this DeployKey.
 func (mg *DeployKey) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)

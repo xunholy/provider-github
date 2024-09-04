@@ -19,6 +19,7 @@ import (
 	"github.com/xunholy/provider-github/config/actionssecret"
 	"github.com/xunholy/provider-github/config/actionsvariable"
 	"github.com/xunholy/provider-github/config/branch"
+	"github.com/xunholy/provider-github/config/branchdefault"
 	"github.com/xunholy/provider-github/config/branchprotection"
 	"github.com/xunholy/provider-github/config/branchprotectionv3"
 	"github.com/xunholy/provider-github/config/emugroupmapping"
@@ -73,8 +74,7 @@ func GetProvider() *ujconfig.Provider {
 		actionssecret.Configure,
 		actionsvariable.Configure,
 		branch.Configure,
-		// TODO: Investigate why it's breaking deepcopy
-		// branchdefault.Configure,
+		branchdefault.Configure,
 		branchprotection.Configure,
 		branchprotectionv3.Configure,
 		emugroupmapping.Configure,

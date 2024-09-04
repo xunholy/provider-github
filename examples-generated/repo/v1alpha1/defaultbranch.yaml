@@ -1,0 +1,44 @@
+apiVersion: repo.crossplane.io/v1alpha1
+kind: DefaultBranch
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/defaultbranch
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    branchSelector:
+      matchLabels:
+        testing.upbound.io/example-name: development
+
+---
+
+apiVersion: repo.crossplane.io/v1alpha1
+kind: Branch
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/defaultbranch
+  labels:
+    testing.upbound.io/example-name: development
+  name: development
+spec:
+  forProvider:
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+
+apiVersion: repo.crossplane.io/v1alpha1
+kind: Repository
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/defaultbranch
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    autoInit: true
+    description: My awesome codebase
