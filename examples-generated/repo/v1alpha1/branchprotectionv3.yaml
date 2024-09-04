@@ -1,0 +1,15 @@
+apiVersion: repo.crossplane.io/v1alpha1
+kind: BranchProtectionV3
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/branchprotectionv3
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    branch: main
+    repository: example
+    restrictions:
+    - users:
+      - foo-user

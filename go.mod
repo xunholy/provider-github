@@ -1,4 +1,4 @@
-module github.com/upbound/upjet-provider-template
+module github.com/xunholy/provider-github
 
 go 1.21
 

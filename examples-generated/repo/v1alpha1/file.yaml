@@ -1,0 +1,35 @@
+apiVersion: repo.crossplane.io/v1alpha1
+kind: File
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/file
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    branch: main
+    commitAuthor: Terraform User
+    commitEmail: terraform@example.com
+    commitMessage: Managed by Terraform
+    content: '**/*.tfstate'
+    file: .gitignore
+    overwriteOnCreate: true
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+
+---
+
+apiVersion: repo.crossplane.io/v1alpha1
+kind: Repository
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/file
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    autoInit: true
+    name: tf-acc-test-%s
