@@ -15,6 +15,20 @@ import (
 
 type RepositoryFileInitParameters struct {
 
+	// Git branch (defaults to the repository's default branch).
+	// The branch must already exist, it will not be created if it does not already exist.
+	// The branch name, defaults to the repository's default branch
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Branch
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Reference to a Branch in repo to populate branch.
+	// +kubebuilder:validation:Optional
+	BranchRef *v1.Reference `json:"branchRef,omitempty" tf:"-"`
+
+	// Selector for a Branch in repo to populate branch.
+	// +kubebuilder:validation:Optional
+	BranchSelector *v1.Selector `json:"branchSelector,omitempty" tf:"-"`
+
 	// Committer author name to use. NOTE: GitHub app users may omit author and email information so GitHub can verify commits as the GitHub App. This maybe useful when a branch protection rule requires signed commits.
 	// The commit author name, defaults to the authenticated user's name. GitHub app users may omit author and email information so GitHub can verify commits as the GitHub App.
 	CommitAuthor *string `json:"commitAuthor,omitempty" tf:"commit_author,omitempty"`
@@ -31,9 +45,26 @@ type RepositoryFileInitParameters struct {
 	// The file's content
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
+	// The path of the file to manage.
+	// The file path to manage
+	File *string `json:"file,omitempty" tf:"file,omitempty"`
+
 	// Enable overwriting existing files. If set to true it will overwrite an existing file with the same name. If set to false it will fail if there is an existing file with the same name.
 	// Enable overwriting existing files, defaults to "false"
 	OverwriteOnCreate *bool `json:"overwriteOnCreate,omitempty" tf:"overwrite_on_create,omitempty"`
+
+	// The repository to create the file in.
+	// The repository name
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 }
 
 type RepositoryFileObservation struct {
@@ -62,6 +93,10 @@ type RepositoryFileObservation struct {
 	// The file content.
 	// The file's content
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// The path of the file to manage.
+	// The file path to manage
+	File *string `json:"file,omitempty" tf:"file,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -118,6 +153,11 @@ type RepositoryFileParameters struct {
 	// The file's content
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
+
+	// The path of the file to manage.
+	// The file path to manage
+	// +kubebuilder:validation:Optional
+	File *string `json:"file,omitempty" tf:"file,omitempty"`
 
 	// Enable overwriting existing files. If set to true it will overwrite an existing file with the same name. If set to false it will fail if there is an existing file with the same name.
 	// Enable overwriting existing files, defaults to "false"
@@ -176,6 +216,7 @@ type RepositoryFile struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.content) || (has(self.initProvider) && has(self.initProvider.content))",message="spec.forProvider.content is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.file) || (has(self.initProvider) && has(self.initProvider.file))",message="spec.forProvider.file is a required parameter"
 	Spec   RepositoryFileSpec   `json:"spec"`
 	Status RepositoryFileStatus `json:"status,omitempty"`
 }

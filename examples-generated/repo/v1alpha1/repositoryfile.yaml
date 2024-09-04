@@ -15,6 +15,7 @@ spec:
     commitEmail: terraform@example.com
     commitMessage: Managed by Terraform
     content: '**/*.tfstate'
+    file: .gitignore
     overwriteOnCreate: true
     repositorySelector:
       matchLabels:
@@ -33,3 +34,4 @@ metadata:
 spec:
   forProvider:
     autoInit: true
+    name: tf-acc-test-%s

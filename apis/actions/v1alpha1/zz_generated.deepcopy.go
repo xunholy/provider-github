@@ -682,6 +682,16 @@ func (in *EnvironmentSecretInitParameters) DeepCopyInto(out *EnvironmentSecretIn
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnvironmentRef != nil {
+		in, out := &in.EnvironmentRef, &out.EnvironmentRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EnvironmentSelector != nil {
+		in, out := &in.EnvironmentSelector, &out.EnvironmentSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PlaintextValueSecretRef != nil {
 		in, out := &in.PlaintextValueSecretRef, &out.PlaintextValueSecretRef
 		*out = new(v1.SecretKeySelector)
@@ -809,6 +819,16 @@ func (in *EnvironmentSecretParameters) DeepCopyInto(out *EnvironmentSecretParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.EnvironmentRef != nil {
+		in, out := &in.EnvironmentRef, &out.EnvironmentRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EnvironmentSelector != nil {
+		in, out := &in.EnvironmentSelector, &out.EnvironmentSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PlaintextValueSecretRef != nil {
 		in, out := &in.PlaintextValueSecretRef, &out.PlaintextValueSecretRef
 		*out = new(v1.SecretKeySelector)
@@ -915,6 +935,16 @@ func (in *EnvironmentVariableInitParameters) DeepCopyInto(out *EnvironmentVariab
 		in, out := &in.Environment, &out.Environment
 		*out = new(string)
 		**out = **in
+	}
+	if in.EnvironmentRef != nil {
+		in, out := &in.EnvironmentRef, &out.EnvironmentRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EnvironmentSelector != nil {
+		in, out := &in.EnvironmentSelector, &out.EnvironmentSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Repository != nil {
 		in, out := &in.Repository, &out.Repository
@@ -1042,6 +1072,16 @@ func (in *EnvironmentVariableParameters) DeepCopyInto(out *EnvironmentVariablePa
 		in, out := &in.Environment, &out.Environment
 		*out = new(string)
 		**out = **in
+	}
+	if in.EnvironmentRef != nil {
+		in, out := &in.EnvironmentRef, &out.EnvironmentRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EnvironmentSelector != nil {
+		in, out := &in.EnvironmentSelector, &out.EnvironmentSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Repository != nil {
 		in, out := &in.Repository, &out.Repository

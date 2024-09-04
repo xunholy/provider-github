@@ -24,6 +24,7 @@ metadata:
   name: development
 spec:
   forProvider:
+    branch: development
     repositorySelector:
       matchLabels:
         testing.upbound.io/example-name: example
@@ -42,3 +43,4 @@ spec:
   forProvider:
     autoInit: true
     description: My awesome codebase
+    name: example

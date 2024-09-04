@@ -17,7 +17,16 @@ type PullRequestInitParameters struct {
 
 	// Name of the branch serving as the base of the Pull Request.
 	// Name of the branch serving as the base of the Pull Request.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Branch
 	BaseRef *string `json:"baseRef,omitempty" tf:"base_ref,omitempty"`
+
+	// Reference to a Branch in repo to populate baseRef.
+	// +kubebuilder:validation:Optional
+	BaseRefRef *v1.Reference `json:"baseRefRef,omitempty" tf:"-"`
+
+	// Selector for a Branch in repo to populate baseRef.
+	// +kubebuilder:validation:Optional
+	BaseRefSelector *v1.Selector `json:"baseRefSelector,omitempty" tf:"-"`
 
 	// Name of the base repository to retrieve the Pull Requests from.
 	// Name of the base repository to retrieve the Pull Requests from.
@@ -135,8 +144,17 @@ type PullRequestParameters struct {
 
 	// Name of the branch serving as the base of the Pull Request.
 	// Name of the branch serving as the base of the Pull Request.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Branch
 	// +kubebuilder:validation:Optional
 	BaseRef *string `json:"baseRef,omitempty" tf:"base_ref,omitempty"`
+
+	// Reference to a Branch in repo to populate baseRef.
+	// +kubebuilder:validation:Optional
+	BaseRefRef *v1.Reference `json:"baseRefRef,omitempty" tf:"-"`
+
+	// Selector for a Branch in repo to populate baseRef.
+	// +kubebuilder:validation:Optional
+	BaseRefSelector *v1.Selector `json:"baseRefSelector,omitempty" tf:"-"`
 
 	// Name of the base repository to retrieve the Pull Requests from.
 	// Name of the base repository to retrieve the Pull Requests from.
@@ -223,7 +241,6 @@ type PullRequestStatus struct {
 type PullRequest struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.baseRef) || (has(self.initProvider) && has(self.initProvider.baseRef))",message="spec.forProvider.baseRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.title) || (has(self.initProvider) && has(self.initProvider.title))",message="spec.forProvider.title is a required parameter"
 	Spec   PullRequestSpec   `json:"spec"`
 	Status PullRequestStatus `json:"status,omitempty"`

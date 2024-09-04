@@ -24,11 +24,14 @@ import (
 	"github.com/xunholy/provider-github/config/branchprotectionv3"
 	"github.com/xunholy/provider-github/config/emugroupmapping"
 	"github.com/xunholy/provider-github/config/enterpriseorganization"
+	"github.com/xunholy/provider-github/config/issuelabel"
+	"github.com/xunholy/provider-github/config/issuelabels"
 	"github.com/xunholy/provider-github/config/membership"
 	"github.com/xunholy/provider-github/config/organizationruleset"
 	"github.com/xunholy/provider-github/config/repository"
 	"github.com/xunholy/provider-github/config/repositoryautolinkreference"
 	"github.com/xunholy/provider-github/config/repositorydeploykey"
+	"github.com/xunholy/provider-github/config/repositoryenvironment"
 	"github.com/xunholy/provider-github/config/repositoryfile"
 	"github.com/xunholy/provider-github/config/repositorypullrequest"
 	"github.com/xunholy/provider-github/config/repositoryruleset"
@@ -79,11 +82,14 @@ func GetProvider() *ujconfig.Provider {
 		branchprotectionv3.Configure,
 		emugroupmapping.Configure,
 		enterpriseorganization.Configure,
+		issuelabel.Configure,
+		issuelabels.Configure,
 		membership.Configure,
 		organizationruleset.Configure,
 		repository.Configure,
 		repositoryautolinkreference.Configure,
 		repositorydeploykey.Configure,
+		repositoryenvironment.Configure,
 		repositoryfile.Configure,
 		repositorypullrequest.Configure,
 		repositoryruleset.Configure,

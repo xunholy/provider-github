@@ -19,6 +19,23 @@ type MembershipInitParameters_2 struct {
 	// Must be one of member or maintainer. Defaults to member.
 	// The role of the user within the team. Must be one of 'member' or 'maintainer'.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// The GitHub team id or the GitHub team slug
+	// The GitHub team id or the GitHub team slug.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/team/v1alpha1.Team
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in team to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamIDRef *v1.Reference `json:"teamIdRef,omitempty" tf:"-"`
+
+	// Selector for a Team in team to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamIDSelector *v1.Selector `json:"teamIdSelector,omitempty" tf:"-"`
+
+	// The user to add to the team.
+	// The user to add to the team.
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type MembershipObservation_2 struct {
@@ -64,8 +81,8 @@ type MembershipParameters_2 struct {
 
 	// The user to add to the team.
 	// The user to add to the team.
-	// +kubebuilder:validation:Required
-	Username *string `json:"username" tf:"username,omitempty"`
+	// +kubebuilder:validation:Optional
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 // MembershipSpec defines the desired state of Membership
@@ -104,8 +121,9 @@ type MembershipStatus struct {
 type Membership struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              MembershipSpec   `json:"spec"`
-	Status            MembershipStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.username) || (has(self.initProvider) && has(self.initProvider.username))",message="spec.forProvider.username is a required parameter"
+	Spec   MembershipSpec   `json:"spec"`
+	Status MembershipStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

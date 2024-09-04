@@ -46,3 +46,4 @@ metadata:
 spec:
   forProvider:
     description: Example repository
+    name: example

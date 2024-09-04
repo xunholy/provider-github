@@ -21,7 +21,16 @@ type EnvironmentSecretInitParameters struct {
 
 	// Name of the environment.
 	// Name of the environment.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Environment
 	Environment *string `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// Reference to a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentRef *v1.Reference `json:"environmentRef,omitempty" tf:"-"`
+
+	// Selector for a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentSelector *v1.Selector `json:"environmentSelector,omitempty" tf:"-"`
 
 	// Plaintext value of the secret to be encrypted.
 	// Plaintext value of the secret to be encrypted.
@@ -79,8 +88,17 @@ type EnvironmentSecretParameters struct {
 
 	// Name of the environment.
 	// Name of the environment.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Environment
 	// +kubebuilder:validation:Optional
 	Environment *string `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// Reference to a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentRef *v1.Reference `json:"environmentRef,omitempty" tf:"-"`
+
+	// Selector for a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentSelector *v1.Selector `json:"environmentSelector,omitempty" tf:"-"`
 
 	// Plaintext value of the secret to be encrypted.
 	// Plaintext value of the secret to be encrypted.
@@ -143,7 +161,6 @@ type EnvironmentSecretStatus struct {
 type EnvironmentSecret struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.environment) || (has(self.initProvider) && has(self.initProvider.environment))",message="spec.forProvider.environment is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.secretName) || (has(self.initProvider) && has(self.initProvider.secretName))",message="spec.forProvider.secretName is a required parameter"
 	Spec   EnvironmentSecretSpec   `json:"spec"`
 	Status EnvironmentSecretStatus `json:"status,omitempty"`

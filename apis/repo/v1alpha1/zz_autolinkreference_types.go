@@ -23,6 +23,19 @@ type AutolinkReferenceInitParameters struct {
 	// This prefix appended by a number will generate a link any time it is found in an issue, pull request, or commit
 	KeyPrefix *string `json:"keyPrefix,omitempty" tf:"key_prefix,omitempty"`
 
+	// The repository of the autolink reference.
+	// The repository name
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
+
 	// The template of the target URL used for the links; must be a valid URL and contain <num> for the reference number
 	// The template of the target URL used for the links; must be a valid URL and contain `<num>` for the reference number
 	TargetURLTemplate *string `json:"targetUrlTemplate,omitempty" tf:"target_url_template,omitempty"`

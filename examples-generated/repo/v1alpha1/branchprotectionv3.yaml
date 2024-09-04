@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     branch: main
-    repository: ${github_repository.example.name}
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     restrictions:
     - users:
       - foo-user

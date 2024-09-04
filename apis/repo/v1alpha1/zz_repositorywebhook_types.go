@@ -80,6 +80,19 @@ type RepositoryWebhookInitParameters struct {
 	// A list of events which should trigger the webhook
 	// +listType=set
 	Events []*string `json:"events,omitempty" tf:"events,omitempty"`
+
+	// The repository of the webhook.
+	// The repository of the webhook.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 }
 
 type RepositoryWebhookObservation struct {

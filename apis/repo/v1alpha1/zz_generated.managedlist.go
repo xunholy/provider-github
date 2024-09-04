@@ -62,6 +62,33 @@ func (l *DeployKeyList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this EnvironmentList.
+func (l *EnvironmentList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this LabelList.
+func (l *LabelList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this LabelsList.
+func (l *LabelsList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this PullRequestList.
 func (l *PullRequestList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

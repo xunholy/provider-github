@@ -8,6 +8,8 @@ metadata:
   name: example-variable
 spec:
   forProvider:
-    environment: example_environment
+    environmentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     value: example_variable_value
     variableName: example_variable_name

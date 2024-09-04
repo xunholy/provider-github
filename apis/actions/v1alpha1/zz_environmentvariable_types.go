@@ -17,7 +17,16 @@ type EnvironmentVariableInitParameters struct {
 
 	// Name of the environment.
 	// Name of the environment.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Environment
 	Environment *string `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// Reference to a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentRef *v1.Reference `json:"environmentRef,omitempty" tf:"-"`
+
+	// Selector for a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentSelector *v1.Selector `json:"environmentSelector,omitempty" tf:"-"`
 
 	// Name of the repository.
 	// Name of the repository.
@@ -74,8 +83,17 @@ type EnvironmentVariableParameters struct {
 
 	// Name of the environment.
 	// Name of the environment.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Environment
 	// +kubebuilder:validation:Optional
 	Environment *string `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// Reference to a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentRef *v1.Reference `json:"environmentRef,omitempty" tf:"-"`
+
+	// Selector for a Environment in repo to populate environment.
+	// +kubebuilder:validation:Optional
+	EnvironmentSelector *v1.Selector `json:"environmentSelector,omitempty" tf:"-"`
 
 	// Name of the repository.
 	// Name of the repository.
@@ -138,7 +156,6 @@ type EnvironmentVariableStatus struct {
 type EnvironmentVariable struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.environment) || (has(self.initProvider) && has(self.initProvider.environment))",message="spec.forProvider.environment is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.variableName) || (has(self.initProvider) && has(self.initProvider.variableName))",message="spec.forProvider.variableName is a required parameter"
 	Spec   EnvironmentVariableSpec   `json:"spec"`

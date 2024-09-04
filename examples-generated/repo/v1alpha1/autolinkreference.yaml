@@ -27,4 +27,5 @@ metadata:
 spec:
   forProvider:
     description: GitHub repo managed by Terraform
+    name: my-repo
     private: false

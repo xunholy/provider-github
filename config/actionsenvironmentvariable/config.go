@@ -9,7 +9,10 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = "actions"
 
 		r.References["repository"] = config.Reference{
-			Type: "github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository",
+			TerraformName: "github_repository",
+		}
+		r.References["environment"] = config.Reference{
+			TerraformName: "github_repository_environment",
 		}
 	})
 }

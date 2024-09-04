@@ -9,8 +9,8 @@ func Configure(p *config.Provider) {
 		r.Kind = "BranchProtectionv3"
 		r.ShortGroup = "repo"
 
-		r.References["repository_id"] = config.Reference{
-			Type: "github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository",
+		r.References["repository"] = config.Reference{
+			TerraformName: "github_repository",
 		}
 	})
 }

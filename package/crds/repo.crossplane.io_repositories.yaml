@@ -192,6 +192,11 @@ spec:
                       Can be PR_TITLE or MERGE_MESSAGE for a default merge commit title. Applicable only if allow_merge_commit is true.
                       Can be 'PR_TITLE' or 'MERGE_MESSAGE' for a default merge commit title.
                     type: string
+                  name:
+                    description: |-
+                      The name of the repository.
+                      The name of the repository.
+                    type: string
                   pages:
                     description: |-
                       The repository's GitHub Pages configuration. See GitHub Pages Configuration below for details.
@@ -468,6 +473,11 @@ spec:
                     description: |-
                       Can be PR_TITLE or MERGE_MESSAGE for a default merge commit title. Applicable only if allow_merge_commit is true.
                       Can be 'PR_TITLE' or 'MERGE_MESSAGE' for a default merge commit title.
+                    type: string
+                  name:
+                    description: |-
+                      The name of the repository.
+                      The name of the repository.
                     type: string
                   pages:
                     description: |-
@@ -781,6 +791,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: RepositoryStatus defines the observed state of Repository.
             properties:
@@ -928,6 +943,11 @@ spec:
                     description: |-
                       Can be PR_TITLE or MERGE_MESSAGE for a default merge commit title. Applicable only if allow_merge_commit is true.
                       Can be 'PR_TITLE' or 'MERGE_MESSAGE' for a default merge commit title.
+                    type: string
+                  name:
+                    description: |-
+                      The name of the repository.
+                      The name of the repository.
                     type: string
                   nodeId:
                     description: |-

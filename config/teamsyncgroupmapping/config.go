@@ -8,7 +8,7 @@ func Configure(p *config.Provider) {
 
 		r.ShortGroup = "team"
 
-		r.References["team_id"] = config.Reference{
+		r.References["team_slug"] = config.Reference{
 			TerraformName: "github_team",
 		}
 	})

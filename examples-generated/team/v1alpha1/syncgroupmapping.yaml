@@ -16,4 +16,6 @@ spec:
           group_name: ${group.value.group_name}
         for_each: '${[for g in data.github_organization_team_sync_groups.example_groups.groups
           : g if g.group_name == "some_team_group"]}'
-    teamSlug: example
+    teamSlugSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

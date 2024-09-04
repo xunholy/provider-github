@@ -11,12 +11,11 @@ func Configure(p *config.Provider) {
 		r.References["base_repository"] = config.Reference{
 			TerraformName: "github_repository",
 		}
-		//    r.References["base_ref"] = config.Reference{
-		//			Type: "github.com/coopnorge/provider-github/apis/repo/v1alpha1.Branch",
-		//		}
+		r.References["base_ref"] = config.Reference{
+			TerraformName: "github_branch",
+		}
 		r.References["head_ref"] = config.Reference{
 			TerraformName: "github_branch",
 		}
-
 	})
 }

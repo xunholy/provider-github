@@ -195,6 +195,10 @@ type RepositoryInitParameters struct {
 	// Can be 'PR_TITLE' or 'MERGE_MESSAGE' for a default merge commit title.
 	MergeCommitTitle *string `json:"mergeCommitTitle,omitempty" tf:"merge_commit_title,omitempty"`
 
+	// The name of the repository.
+	// The name of the repository.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The repository's GitHub Pages configuration. See GitHub Pages Configuration below for details.
 	// The repository's GitHub Pages configuration
 	Pages []PagesInitParameters `json:"pages,omitempty" tf:"pages,omitempty"`
@@ -354,6 +358,10 @@ type RepositoryObservation struct {
 	// Can be PR_TITLE or MERGE_MESSAGE for a default merge commit title. Applicable only if allow_merge_commit is true.
 	// Can be 'PR_TITLE' or 'MERGE_MESSAGE' for a default merge commit title.
 	MergeCommitTitle *string `json:"mergeCommitTitle,omitempty" tf:"merge_commit_title,omitempty"`
+
+	// The name of the repository.
+	// The name of the repository.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// GraphQL global node id for use with v4 API
 	// GraphQL global node id for use with v4 API.
@@ -536,6 +544,11 @@ type RepositoryParameters struct {
 	// Can be 'PR_TITLE' or 'MERGE_MESSAGE' for a default merge commit title.
 	// +kubebuilder:validation:Optional
 	MergeCommitTitle *string `json:"mergeCommitTitle,omitempty" tf:"merge_commit_title,omitempty"`
+
+	// The name of the repository.
+	// The name of the repository.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The repository's GitHub Pages configuration. See GitHub Pages Configuration below for details.
 	// The repository's GitHub Pages configuration
@@ -800,8 +813,9 @@ type RepositoryStatus struct {
 type Repository struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              RepositorySpec   `json:"spec"`
-	Status            RepositoryStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   RepositorySpec   `json:"spec"`
+	Status RepositoryStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

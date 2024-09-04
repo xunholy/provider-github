@@ -26,6 +26,9 @@ import (
 	branchprotectionv3 "github.com/xunholy/provider-github/internal/controller/repo/branchprotectionv3"
 	defaultbranch "github.com/xunholy/provider-github/internal/controller/repo/defaultbranch"
 	deploykey "github.com/xunholy/provider-github/internal/controller/repo/deploykey"
+	environment "github.com/xunholy/provider-github/internal/controller/repo/environment"
+	label "github.com/xunholy/provider-github/internal/controller/repo/label"
+	labels "github.com/xunholy/provider-github/internal/controller/repo/labels"
 	pullrequest "github.com/xunholy/provider-github/internal/controller/repo/pullrequest"
 	repository "github.com/xunholy/provider-github/internal/controller/repo/repository"
 	repositoryfile "github.com/xunholy/provider-github/internal/controller/repo/repositoryfile"
@@ -62,6 +65,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		branchprotectionv3.Setup,
 		defaultbranch.Setup,
 		deploykey.Setup,
+		environment.Setup,
+		label.Setup,
+		labels.Setup,
 		pullrequest.Setup,
 		repository.Setup,
 		repositoryfile.Setup,

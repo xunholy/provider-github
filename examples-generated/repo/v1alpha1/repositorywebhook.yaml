@@ -36,4 +36,5 @@ spec:
   forProvider:
     description: Terraform acceptance tests
     homepageUrl: http://example.com/
+    name: foo
     visibility: public

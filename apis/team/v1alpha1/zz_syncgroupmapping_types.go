@@ -69,7 +69,16 @@ type SyncGroupMappingInitParameters struct {
 
 	// Slug of the team
 	// Slug of the team.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/team/v1alpha1.Team
 	TeamSlug *string `json:"teamSlug,omitempty" tf:"team_slug,omitempty"`
+
+	// Reference to a Team in team to populate teamSlug.
+	// +kubebuilder:validation:Optional
+	TeamSlugRef *v1.Reference `json:"teamSlugRef,omitempty" tf:"-"`
+
+	// Selector for a Team in team to populate teamSlug.
+	// +kubebuilder:validation:Optional
+	TeamSlugSelector *v1.Selector `json:"teamSlugSelector,omitempty" tf:"-"`
 }
 
 type SyncGroupMappingObservation struct {
@@ -95,8 +104,17 @@ type SyncGroupMappingParameters struct {
 
 	// Slug of the team
 	// Slug of the team.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/team/v1alpha1.Team
 	// +kubebuilder:validation:Optional
 	TeamSlug *string `json:"teamSlug,omitempty" tf:"team_slug,omitempty"`
+
+	// Reference to a Team in team to populate teamSlug.
+	// +kubebuilder:validation:Optional
+	TeamSlugRef *v1.Reference `json:"teamSlugRef,omitempty" tf:"-"`
+
+	// Selector for a Team in team to populate teamSlug.
+	// +kubebuilder:validation:Optional
+	TeamSlugSelector *v1.Selector `json:"teamSlugSelector,omitempty" tf:"-"`
 }
 
 // SyncGroupMappingSpec defines the desired state of SyncGroupMapping
@@ -135,9 +153,8 @@ type SyncGroupMappingStatus struct {
 type SyncGroupMapping struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.teamSlug) || (has(self.initProvider) && has(self.initProvider.teamSlug))",message="spec.forProvider.teamSlug is a required parameter"
-	Spec   SyncGroupMappingSpec   `json:"spec"`
-	Status SyncGroupMappingStatus `json:"status,omitempty"`
+	Spec              SyncGroupMappingSpec   `json:"spec"`
+	Status            SyncGroupMappingStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
