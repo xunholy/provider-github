@@ -68,62 +68,62 @@ func (mg *Organization) SetWriteConnectionSecretToReference(r *xpv1.SecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Ruleset.
-func (mg *Ruleset) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this OrganizationRuleset.
+func (mg *OrganizationRuleset) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetDeletionPolicy of this Ruleset.
-func (mg *Ruleset) GetDeletionPolicy() xpv1.DeletionPolicy {
+// GetDeletionPolicy of this OrganizationRuleset.
+func (mg *OrganizationRuleset) GetDeletionPolicy() xpv1.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this Ruleset.
-func (mg *Ruleset) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this OrganizationRuleset.
+func (mg *OrganizationRuleset) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this Ruleset.
-func (mg *Ruleset) GetProviderConfigReference() *xpv1.Reference {
+// GetProviderConfigReference of this OrganizationRuleset.
+func (mg *OrganizationRuleset) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this Ruleset.
-func (mg *Ruleset) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+// GetPublishConnectionDetailsTo of this OrganizationRuleset.
+func (mg *OrganizationRuleset) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
 	return mg.Spec.PublishConnectionDetailsTo
 }
 
-// GetWriteConnectionSecretToReference of this Ruleset.
-func (mg *Ruleset) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+// GetWriteConnectionSecretToReference of this OrganizationRuleset.
+func (mg *OrganizationRuleset) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Ruleset.
-func (mg *Ruleset) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this OrganizationRuleset.
+func (mg *OrganizationRuleset) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetDeletionPolicy of this Ruleset.
-func (mg *Ruleset) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+// SetDeletionPolicy of this OrganizationRuleset.
+func (mg *OrganizationRuleset) SetDeletionPolicy(r xpv1.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this Ruleset.
-func (mg *Ruleset) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this OrganizationRuleset.
+func (mg *OrganizationRuleset) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this Ruleset.
-func (mg *Ruleset) SetProviderConfigReference(r *xpv1.Reference) {
+// SetProviderConfigReference of this OrganizationRuleset.
+func (mg *OrganizationRuleset) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this Ruleset.
-func (mg *Ruleset) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+// SetPublishConnectionDetailsTo of this OrganizationRuleset.
+func (mg *OrganizationRuleset) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
 	mg.Spec.PublishConnectionDetailsTo = r
 }
 
-// SetWriteConnectionSecretToReference of this Ruleset.
-func (mg *Ruleset) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+// SetWriteConnectionSecretToReference of this OrganizationRuleset.
+func (mg *OrganizationRuleset) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

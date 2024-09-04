@@ -7,7 +7,7 @@ import (
 // Configure github_repository_tag_protection resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_repository_tag_protection", func(r *config.Resource) {
-		r.Kind = "RepositoryWebhook"
+
 		r.ShortGroup = "repo"
 
 		r.References["repository"] = config.Reference{

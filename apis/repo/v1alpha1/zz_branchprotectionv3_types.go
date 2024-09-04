@@ -13,7 +13,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type BranchProtectionV3InitParameters struct {
+type BranchProtectionv3InitParameters struct {
 
 	// The Git branch to protect.
 	// The Git branch to protect.
@@ -37,18 +37,18 @@ type BranchProtectionV3InitParameters struct {
 
 	// Enforce restrictions for pull request reviews. See Required Pull Request Reviews below for details.
 	// Enforce restrictions for pull request reviews.
-	RequiredPullRequestReviews []BranchProtectionV3RequiredPullRequestReviewsInitParameters `json:"requiredPullRequestReviews,omitempty" tf:"required_pull_request_reviews,omitempty"`
+	RequiredPullRequestReviews []BranchProtectionv3RequiredPullRequestReviewsInitParameters `json:"requiredPullRequestReviews,omitempty" tf:"required_pull_request_reviews,omitempty"`
 
 	// Enforce restrictions for required status checks. See Required Status Checks below for details.
 	// Enforce restrictions for required status checks.
-	RequiredStatusChecks []BranchProtectionV3RequiredStatusChecksInitParameters `json:"requiredStatusChecks,omitempty" tf:"required_status_checks,omitempty"`
+	RequiredStatusChecks []BranchProtectionv3RequiredStatusChecksInitParameters `json:"requiredStatusChecks,omitempty" tf:"required_status_checks,omitempty"`
 
 	// Enforce restrictions for the users and teams that may push to the branch. See Restrictions below for details.
 	// Enforce restrictions for the users and teams that may push to the branch.
 	Restrictions []RestrictionsInitParameters `json:"restrictions,omitempty" tf:"restrictions,omitempty"`
 }
 
-type BranchProtectionV3Observation struct {
+type BranchProtectionv3Observation struct {
 
 	// The Git branch to protect.
 	// The Git branch to protect.
@@ -76,18 +76,18 @@ type BranchProtectionV3Observation struct {
 
 	// Enforce restrictions for pull request reviews. See Required Pull Request Reviews below for details.
 	// Enforce restrictions for pull request reviews.
-	RequiredPullRequestReviews []BranchProtectionV3RequiredPullRequestReviewsObservation `json:"requiredPullRequestReviews,omitempty" tf:"required_pull_request_reviews,omitempty"`
+	RequiredPullRequestReviews []BranchProtectionv3RequiredPullRequestReviewsObservation `json:"requiredPullRequestReviews,omitempty" tf:"required_pull_request_reviews,omitempty"`
 
 	// Enforce restrictions for required status checks. See Required Status Checks below for details.
 	// Enforce restrictions for required status checks.
-	RequiredStatusChecks []BranchProtectionV3RequiredStatusChecksObservation `json:"requiredStatusChecks,omitempty" tf:"required_status_checks,omitempty"`
+	RequiredStatusChecks []BranchProtectionv3RequiredStatusChecksObservation `json:"requiredStatusChecks,omitempty" tf:"required_status_checks,omitempty"`
 
 	// Enforce restrictions for the users and teams that may push to the branch. See Restrictions below for details.
 	// Enforce restrictions for the users and teams that may push to the branch.
 	Restrictions []RestrictionsObservation `json:"restrictions,omitempty" tf:"restrictions,omitempty"`
 }
 
-type BranchProtectionV3Parameters struct {
+type BranchProtectionv3Parameters struct {
 
 	// The Git branch to protect.
 	// The Git branch to protect.
@@ -117,12 +117,12 @@ type BranchProtectionV3Parameters struct {
 	// Enforce restrictions for pull request reviews. See Required Pull Request Reviews below for details.
 	// Enforce restrictions for pull request reviews.
 	// +kubebuilder:validation:Optional
-	RequiredPullRequestReviews []BranchProtectionV3RequiredPullRequestReviewsParameters `json:"requiredPullRequestReviews,omitempty" tf:"required_pull_request_reviews,omitempty"`
+	RequiredPullRequestReviews []BranchProtectionv3RequiredPullRequestReviewsParameters `json:"requiredPullRequestReviews,omitempty" tf:"required_pull_request_reviews,omitempty"`
 
 	// Enforce restrictions for required status checks. See Required Status Checks below for details.
 	// Enforce restrictions for required status checks.
 	// +kubebuilder:validation:Optional
-	RequiredStatusChecks []BranchProtectionV3RequiredStatusChecksParameters `json:"requiredStatusChecks,omitempty" tf:"required_status_checks,omitempty"`
+	RequiredStatusChecks []BranchProtectionv3RequiredStatusChecksParameters `json:"requiredStatusChecks,omitempty" tf:"required_status_checks,omitempty"`
 
 	// Enforce restrictions for the users and teams that may push to the branch. See Restrictions below for details.
 	// Enforce restrictions for the users and teams that may push to the branch.
@@ -130,7 +130,7 @@ type BranchProtectionV3Parameters struct {
 	Restrictions []RestrictionsParameters `json:"restrictions,omitempty" tf:"restrictions,omitempty"`
 }
 
-type BranchProtectionV3RequiredPullRequestReviewsInitParameters struct {
+type BranchProtectionv3RequiredPullRequestReviewsInitParameters struct {
 
 	// :  Allow specific users, teams, or apps to bypass pull request requirements. See Bypass Pull Request Allowances below for details.
 	BypassPullRequestAllowances []BypassPullRequestAllowancesInitParameters `json:"bypassPullRequestAllowances,omitempty" tf:"bypass_pull_request_allowances,omitempty"`
@@ -170,7 +170,7 @@ type BranchProtectionV3RequiredPullRequestReviewsInitParameters struct {
 	RequiredApprovingReviewCount *float64 `json:"requiredApprovingReviewCount,omitempty" tf:"required_approving_review_count,omitempty"`
 }
 
-type BranchProtectionV3RequiredPullRequestReviewsObservation struct {
+type BranchProtectionv3RequiredPullRequestReviewsObservation struct {
 
 	// :  Allow specific users, teams, or apps to bypass pull request requirements. See Bypass Pull Request Allowances below for details.
 	BypassPullRequestAllowances []BypassPullRequestAllowancesObservation `json:"bypassPullRequestAllowances,omitempty" tf:"bypass_pull_request_allowances,omitempty"`
@@ -210,7 +210,7 @@ type BranchProtectionV3RequiredPullRequestReviewsObservation struct {
 	RequiredApprovingReviewCount *float64 `json:"requiredApprovingReviewCount,omitempty" tf:"required_approving_review_count,omitempty"`
 }
 
-type BranchProtectionV3RequiredPullRequestReviewsParameters struct {
+type BranchProtectionv3RequiredPullRequestReviewsParameters struct {
 
 	// :  Allow specific users, teams, or apps to bypass pull request requirements. See Bypass Pull Request Allowances below for details.
 	// +kubebuilder:validation:Optional
@@ -259,7 +259,7 @@ type BranchProtectionV3RequiredPullRequestReviewsParameters struct {
 	RequiredApprovingReviewCount *float64 `json:"requiredApprovingReviewCount,omitempty" tf:"required_approving_review_count,omitempty"`
 }
 
-type BranchProtectionV3RequiredStatusChecksInitParameters struct {
+type BranchProtectionv3RequiredStatusChecksInitParameters struct {
 
 	// :  The list of status checks to require in order to merge into this branch. No status checks are required by default. Checks should be strings containing the context and app_id like so "context:app_id".
 	// The list of status checks to require in order to merge into this branch. No status checks are required by default. Checks should be strings containing the 'context' and 'app_id' like so 'context:app_id'
@@ -277,7 +277,7 @@ type BranchProtectionV3RequiredStatusChecksInitParameters struct {
 	Strict *bool `json:"strict,omitempty" tf:"strict,omitempty"`
 }
 
-type BranchProtectionV3RequiredStatusChecksObservation struct {
+type BranchProtectionv3RequiredStatusChecksObservation struct {
 
 	// :  The list of status checks to require in order to merge into this branch. No status checks are required by default. Checks should be strings containing the context and app_id like so "context:app_id".
 	// The list of status checks to require in order to merge into this branch. No status checks are required by default. Checks should be strings containing the 'context' and 'app_id' like so 'context:app_id'
@@ -295,7 +295,7 @@ type BranchProtectionV3RequiredStatusChecksObservation struct {
 	Strict *bool `json:"strict,omitempty" tf:"strict,omitempty"`
 }
 
-type BranchProtectionV3RequiredStatusChecksParameters struct {
+type BranchProtectionv3RequiredStatusChecksParameters struct {
 
 	// :  The list of status checks to require in order to merge into this branch. No status checks are required by default. Checks should be strings containing the context and app_id like so "context:app_id".
 	// The list of status checks to require in order to merge into this branch. No status checks are required by default. Checks should be strings containing the 'context' and 'app_id' like so 'context:app_id'
@@ -428,10 +428,10 @@ type RestrictionsParameters struct {
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 }
 
-// BranchProtectionV3Spec defines the desired state of BranchProtectionV3
-type BranchProtectionV3Spec struct {
+// BranchProtectionv3Spec defines the desired state of BranchProtectionv3
+type BranchProtectionv3Spec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     BranchProtectionV3Parameters `json:"forProvider"`
+	ForProvider     BranchProtectionv3Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -442,51 +442,51 @@ type BranchProtectionV3Spec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider BranchProtectionV3InitParameters `json:"initProvider,omitempty"`
+	InitProvider BranchProtectionv3InitParameters `json:"initProvider,omitempty"`
 }
 
-// BranchProtectionV3Status defines the observed state of BranchProtectionV3.
-type BranchProtectionV3Status struct {
+// BranchProtectionv3Status defines the observed state of BranchProtectionv3.
+type BranchProtectionv3Status struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        BranchProtectionV3Observation `json:"atProvider,omitempty"`
+	AtProvider        BranchProtectionv3Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// BranchProtectionV3 is the Schema for the BranchProtectionV3s API. Protects a GitHub branch using the v3 / REST implementation.  The
+// BranchProtectionv3 is the Schema for the BranchProtectionv3s API. Protects a GitHub branch using the v3 / REST implementation.  The
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,github}
-type BranchProtectionV3 struct {
+type BranchProtectionv3 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.branch) || (has(self.initProvider) && has(self.initProvider.branch))",message="spec.forProvider.branch is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.repository) || (has(self.initProvider) && has(self.initProvider.repository))",message="spec.forProvider.repository is a required parameter"
-	Spec   BranchProtectionV3Spec   `json:"spec"`
-	Status BranchProtectionV3Status `json:"status,omitempty"`
+	Spec   BranchProtectionv3Spec   `json:"spec"`
+	Status BranchProtectionv3Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// BranchProtectionV3List contains a list of BranchProtectionV3s
-type BranchProtectionV3List struct {
+// BranchProtectionv3List contains a list of BranchProtectionv3s
+type BranchProtectionv3List struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []BranchProtectionV3 `json:"items"`
+	Items           []BranchProtectionv3 `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	BranchProtectionV3_Kind             = "BranchProtectionV3"
-	BranchProtectionV3_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: BranchProtectionV3_Kind}.String()
-	BranchProtectionV3_KindAPIVersion   = BranchProtectionV3_Kind + "." + CRDGroupVersion.String()
-	BranchProtectionV3_GroupVersionKind = CRDGroupVersion.WithKind(BranchProtectionV3_Kind)
+	BranchProtectionv3_Kind             = "BranchProtectionv3"
+	BranchProtectionv3_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: BranchProtectionv3_Kind}.String()
+	BranchProtectionv3_KindAPIVersion   = BranchProtectionv3_Kind + "." + CRDGroupVersion.String()
+	BranchProtectionv3_GroupVersionKind = CRDGroupVersion.WithKind(BranchProtectionv3_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&BranchProtectionV3{}, &BranchProtectionV3List{})
+	SchemeBuilder.Register(&BranchProtectionv3{}, &BranchProtectionv3List{})
 }

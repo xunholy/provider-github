@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this BranchProtectionV3
-func (mg *BranchProtectionV3) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this BranchProtectionv3
+func (mg *BranchProtectionv3) GetTerraformResourceType() string {
 	return "github_branch_protection_v3"
 }
 
-// GetConnectionDetailsMapping for this BranchProtectionV3
-func (tr *BranchProtectionV3) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this BranchProtectionv3
+func (tr *BranchProtectionv3) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this BranchProtectionV3
-func (tr *BranchProtectionV3) GetObservation() (map[string]any, error) {
+// GetObservation of this BranchProtectionv3
+func (tr *BranchProtectionv3) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *BranchProtectionV3) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this BranchProtectionV3
-func (tr *BranchProtectionV3) SetObservation(obs map[string]any) error {
+// SetObservation for this BranchProtectionv3
+func (tr *BranchProtectionv3) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *BranchProtectionV3) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this BranchProtectionV3
-func (tr *BranchProtectionV3) GetID() string {
+// GetID returns ID of underlying Terraform resource of this BranchProtectionv3
+func (tr *BranchProtectionv3) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this BranchProtectionV3
-func (tr *BranchProtectionV3) GetParameters() (map[string]any, error) {
+// GetParameters of this BranchProtectionv3
+func (tr *BranchProtectionv3) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *BranchProtectionV3) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this BranchProtectionV3
-func (tr *BranchProtectionV3) SetParameters(params map[string]any) error {
+// SetParameters for this BranchProtectionv3
+func (tr *BranchProtectionv3) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *BranchProtectionV3) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this BranchProtectionV3
-func (tr *BranchProtectionV3) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this BranchProtectionv3
+func (tr *BranchProtectionv3) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *BranchProtectionV3) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this BranchProtectionV3
-func (tr *BranchProtectionV3) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this BranchProtectionv3
+func (tr *BranchProtectionv3) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *BranchProtectionV3) GetMergedParameters(shouldMergeInitProvider bool) 
 	return params, nil
 }
 
-// LateInitialize this BranchProtectionV3 using its observed tfState.
+// LateInitialize this BranchProtectionv3 using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *BranchProtectionV3) LateInitialize(attrs []byte) (bool, error) {
-	params := &BranchProtectionV3Parameters{}
+func (tr *BranchProtectionv3) LateInitialize(attrs []byte) (bool, error) {
+	params := &BranchProtectionv3Parameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *BranchProtectionV3) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *BranchProtectionV3) GetTerraformSchemaVersion() int {
+func (tr *BranchProtectionv3) GetTerraformSchemaVersion() int {
 	return 0
 }

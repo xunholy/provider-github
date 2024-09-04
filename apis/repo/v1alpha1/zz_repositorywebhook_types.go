@@ -66,7 +66,7 @@ type ConfigurationParameters struct {
 	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
-type RepositoryWebhookInitParameters_2 struct {
+type RepositoryWebhookInitParameters struct {
 
 	// Indicate if the webhook should receive events. Defaults to true.
 	// Indicate if the webhook should receive events. Defaults to 'true'.
@@ -82,7 +82,7 @@ type RepositoryWebhookInitParameters_2 struct {
 	Events []*string `json:"events,omitempty" tf:"events,omitempty"`
 }
 
-type RepositoryWebhookObservation_2 struct {
+type RepositoryWebhookObservation struct {
 
 	// Indicate if the webhook should receive events. Defaults to true.
 	// Indicate if the webhook should receive events. Defaults to 'true'.
@@ -110,7 +110,7 @@ type RepositoryWebhookObservation_2 struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
-type RepositoryWebhookParameters_2 struct {
+type RepositoryWebhookParameters struct {
 
 	// Indicate if the webhook should receive events. Defaults to true.
 	// Indicate if the webhook should receive events. Defaults to 'true'.
@@ -146,7 +146,7 @@ type RepositoryWebhookParameters_2 struct {
 // RepositoryWebhookSpec defines the desired state of RepositoryWebhook
 type RepositoryWebhookSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RepositoryWebhookParameters_2 `json:"forProvider"`
+	ForProvider     RepositoryWebhookParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -157,13 +157,13 @@ type RepositoryWebhookSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RepositoryWebhookInitParameters_2 `json:"initProvider,omitempty"`
+	InitProvider RepositoryWebhookInitParameters `json:"initProvider,omitempty"`
 }
 
 // RepositoryWebhookStatus defines the observed state of RepositoryWebhook.
 type RepositoryWebhookStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RepositoryWebhookObservation_2 `json:"atProvider,omitempty"`
+	AtProvider        RepositoryWebhookObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

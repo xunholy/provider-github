@@ -8,6 +8,15 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
+// GetItems of this AutolinkReferenceList.
+func (l *AutolinkReferenceList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this BranchList.
 func (l *BranchList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -17,8 +26,17 @@ func (l *BranchList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this BranchProtectionV3List.
-func (l *BranchProtectionV3List) GetItems() []resource.Managed {
+// GetItems of this BranchProtectionList.
+func (l *BranchProtectionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this BranchProtectionv3List.
+func (l *BranchProtectionv3List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -35,24 +53,6 @@ func (l *DeployKeyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this FileList.
-func (l *FileList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this ProtectionList.
-func (l *ProtectionList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this PullRequestList.
 func (l *PullRequestList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -62,8 +62,8 @@ func (l *PullRequestList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this RepositoryAutolinkReferenceList.
-func (l *RepositoryAutolinkReferenceList) GetItems() []resource.Managed {
+// GetItems of this RepositoryFileList.
+func (l *RepositoryFileList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -91,6 +91,15 @@ func (l *RepositoryWebhookList) GetItems() []resource.Managed {
 
 // GetItems of this RulesetList.
 func (l *RulesetList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this TagProtectionList.
+func (l *TagProtectionList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

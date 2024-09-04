@@ -10,4 +10,4 @@ package v1alpha1
 func (tr *Organization) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Ruleset) Hub() {}
+func (tr *OrganizationRuleset) Hub() {}

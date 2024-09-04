@@ -15,8 +15,8 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-// ResolveReferences of this EmuGroupMapping.
-func (mg *EmuGroupMapping) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this GroupMapping.
+func (mg *GroupMapping) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
@@ -99,8 +99,8 @@ func (mg *Members) ResolveReferences(ctx context.Context, c client.Reader) error
 	return nil
 }
 
-// ResolveReferences of this TeamMembership.
-func (mg *TeamMembership) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this Membership.
+func (mg *Membership) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
@@ -125,8 +125,8 @@ func (mg *TeamMembership) ResolveReferences(ctx context.Context, c client.Reader
 	return nil
 }
 
-// ResolveReferences of this TeamRepository.
-func (mg *TeamRepository) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this Repository.
+func (mg *Repository) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
@@ -167,8 +167,8 @@ func (mg *TeamRepository) ResolveReferences(ctx context.Context, c client.Reader
 	return nil
 }
 
-// ResolveReferences of this TeamSettings.
-func (mg *TeamSettings) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this Settings.
+func (mg *Settings) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse

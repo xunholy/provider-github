@@ -1,5 +1,5 @@
 apiVersion: repo.crossplane.io/v1alpha1
-kind: BranchProtectionV3
+kind: BranchProtectionv3
 metadata:
   annotations:
     meta.upbound.io/example-id: repo/v1alpha1/branchprotectionv3

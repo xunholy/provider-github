@@ -8,6 +8,24 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
+// GetItems of this ActionsSecretList.
+func (l *ActionsSecretList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ActionsVariableList.
+func (l *ActionsVariableList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this EnvironmentSecretList.
 func (l *EnvironmentSecretList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -55,24 +73,6 @@ func (l *RepositoryAccessLevelList) GetItems() []resource.Managed {
 
 // GetItems of this RepositoryPermissionsList.
 func (l *RepositoryPermissionsList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this SecretList.
-func (l *SecretList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this VariableList.
-func (l *VariableList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

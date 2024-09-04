@@ -12,7 +12,6 @@ import (
 
 	v1alpha1 "github.com/xunholy/provider-github/apis/actions/v1alpha1"
 	v1alpha1enterprise "github.com/xunholy/provider-github/apis/enterprise/v1alpha1"
-	v1alpha1github "github.com/xunholy/provider-github/apis/github/v1alpha1"
 	v1alpha1repo "github.com/xunholy/provider-github/apis/repo/v1alpha1"
 	v1alpha1team "github.com/xunholy/provider-github/apis/team/v1alpha1"
 	v1alpha1apis "github.com/xunholy/provider-github/apis/v1alpha1"
@@ -24,7 +23,6 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1enterprise.SchemeBuilder.AddToScheme,
-		v1alpha1github.SchemeBuilder.AddToScheme,
 		v1alpha1repo.SchemeBuilder.AddToScheme,
 		v1alpha1team.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,

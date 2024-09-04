@@ -12,8 +12,8 @@ spec:
     - crossplane
     - managed
     - github
-    kind: BranchProtectionV3
-    listKind: BranchProtectionV3List
+    kind: BranchProtectionv3
+    listKind: BranchProtectionv3List
     plural: branchprotectionv3s
     singular: branchprotectionv3
   scope: Cluster
@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: BranchProtectionV3 is the Schema for the BranchProtectionV3s
+        description: BranchProtectionv3 is the Schema for the BranchProtectionv3s
           API. Protects a GitHub branch using the v3 / REST implementation.  The
         properties:
           apiVersion:
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: BranchProtectionV3Spec defines the desired state of BranchProtectionV3
+            description: BranchProtectionv3Spec defines the desired state of BranchProtectionv3
             properties:
               deletionPolicy:
                 default: Delete
@@ -611,7 +611,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.repository)
                 || (has(self.initProvider) && has(self.initProvider.repository))'
           status:
-            description: BranchProtectionV3Status defines the observed state of BranchProtectionV3.
+            description: BranchProtectionv3Status defines the observed state of BranchProtectionv3.
             properties:
               atProvider:
                 properties:

@@ -13,6 +13,32 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// ResolveReferences of this AutolinkReference.
+func (mg *AutolinkReference) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.RepositoryRef,
+		Selector:     mg.Spec.ForProvider.RepositorySelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Repository")
+	}
+	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this Branch.
 func (mg *Branch) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -35,6 +61,48 @@ func (mg *Branch) ResolveReferences(ctx context.Context, c client.Reader) error 
 	}
 	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this BranchProtection.
+func (mg *BranchProtection) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RepositoryID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.RepositoryIDRef,
+		Selector:     mg.Spec.ForProvider.RepositoryIDSelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RepositoryID")
+	}
+	mg.Spec.ForProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RepositoryIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RepositoryID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.RepositoryIDRef,
+		Selector:     mg.Spec.InitProvider.RepositoryIDSelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RepositoryID")
+	}
+	mg.Spec.InitProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RepositoryIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -77,90 +145,6 @@ func (mg *DeployKey) ResolveReferences(ctx context.Context, c client.Reader) err
 	}
 	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
-
-	return nil
-}
-
-// ResolveReferences of this File.
-func (mg *File) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
-
-	var rsp reference.ResolutionResponse
-	var err error
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Branch),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.BranchRef,
-		Selector:     mg.Spec.ForProvider.BranchSelector,
-		To: reference.To{
-			List:    &BranchList{},
-			Managed: &Branch{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.Branch")
-	}
-	mg.Spec.ForProvider.Branch = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.BranchRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.RepositoryRef,
-		Selector:     mg.Spec.ForProvider.RepositorySelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.Repository")
-	}
-	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
-
-	return nil
-}
-
-// ResolveReferences of this Protection.
-func (mg *Protection) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
-
-	var rsp reference.ResolutionResponse
-	var err error
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RepositoryID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.RepositoryIDRef,
-		Selector:     mg.Spec.ForProvider.RepositoryIDSelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.RepositoryID")
-	}
-	mg.Spec.ForProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.RepositoryIDRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RepositoryID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.RepositoryIDRef,
-		Selector:     mg.Spec.InitProvider.RepositoryIDSelector,
-		To: reference.To{
-			List:    &RepositoryList{},
-			Managed: &Repository{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.RepositoryID")
-	}
-	mg.Spec.InitProvider.RepositoryID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.RepositoryIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -239,12 +223,28 @@ func (mg *PullRequest) ResolveReferences(ctx context.Context, c client.Reader) e
 	return nil
 }
 
-// ResolveReferences of this RepositoryAutolinkReference.
-func (mg *RepositoryAutolinkReference) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this RepositoryFile.
+func (mg *RepositoryFile) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
 	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Branch),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.BranchRef,
+		Selector:     mg.Spec.ForProvider.BranchSelector,
+		To: reference.To{
+			List:    &BranchList{},
+			Managed: &Branch{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Branch")
+	}
+	mg.Spec.ForProvider.Branch = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BranchRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
@@ -293,6 +293,48 @@ func (mg *RepositoryWebhook) ResolveReferences(ctx context.Context, c client.Rea
 
 // ResolveReferences of this Ruleset.
 func (mg *Ruleset) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.RepositoryRef,
+		Selector:     mg.Spec.ForProvider.RepositorySelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Repository")
+	}
+	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.RepositoryRef,
+		Selector:     mg.Spec.InitProvider.RepositorySelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Repository")
+	}
+	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this TagProtection.
+func (mg *TagProtection) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse

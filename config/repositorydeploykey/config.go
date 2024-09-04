@@ -7,6 +7,7 @@ import (
 // Configure github_repository_deploy_key resource.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_repository_deploy_key", func(r *config.Resource) {
+
 		r.ShortGroup = "repo"
 
 		r.References["repository"] = config.Reference{

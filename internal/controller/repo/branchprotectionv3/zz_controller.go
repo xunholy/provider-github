@@ -25,16 +25,16 @@ import (
 	features "github.com/xunholy/provider-github/internal/features"
 )
 
-// Setup adds a controller that reconciles BranchProtectionV3 managed resources.
+// Setup adds a controller that reconciles BranchProtectionv3 managed resources.
 func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
-	name := managed.ControllerName(v1alpha1.BranchProtectionV3_GroupVersionKind.String())
+	name := managed.ControllerName(v1alpha1.BranchProtectionv3_GroupVersionKind.String())
 	var initializers managed.InitializerChain
 	cps := []managed.ConnectionPublisher{managed.NewAPISecretPublisher(mgr.GetClient(), mgr.GetScheme())}
 	if o.SecretStoreConfigGVK != nil {
 		cps = append(cps, connection.NewDetailsManager(mgr.GetClient(), *o.SecretStoreConfigGVK, connection.WithTLSConfig(o.ESSOptions.TLSConfig)))
 	}
-	eventHandler := handler.NewEventHandler(handler.WithLogger(o.Logger.WithValues("gvk", v1alpha1.BranchProtectionV3_GroupVersionKind)))
-	ac := tjcontroller.NewAPICallbacks(mgr, xpresource.ManagedKind(v1alpha1.BranchProtectionV3_GroupVersionKind), tjcontroller.WithEventHandler(eventHandler))
+	eventHandler := handler.NewEventHandler(handler.WithLogger(o.Logger.WithValues("gvk", v1alpha1.BranchProtectionv3_GroupVersionKind)))
+	ac := tjcontroller.NewAPICallbacks(mgr, xpresource.ManagedKind(v1alpha1.BranchProtectionv3_GroupVersionKind), tjcontroller.WithEventHandler(eventHandler))
 	opts := []managed.ReconcilerOption{
 		managed.WithExternalConnecter(tjcontroller.NewConnector(mgr.GetClient(), o.WorkspaceStore, o.SetupFn, o.Provider.Resources["github_branch_protection_v3"], tjcontroller.WithLogger(o.Logger), tjcontroller.WithConnectorEventHandler(eventHandler),
 			tjcontroller.WithCallbackProvider(ac),
@@ -57,31 +57,31 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 		opts = append(opts, managed.WithMetricRecorder(o.MetricOptions.MRMetrics))
 	}
 
-	// register webhooks for the kind v1alpha1.BranchProtectionV3
+	// register webhooks for the kind v1alpha1.BranchProtectionv3
 	// if they're enabled.
 	if o.StartWebhooks {
 		if err := ctrl.NewWebhookManagedBy(mgr).
-			For(&v1alpha1.BranchProtectionV3{}).
+			For(&v1alpha1.BranchProtectionv3{}).
 			Complete(); err != nil {
-			return errors.Wrap(err, "cannot register webhook for the kind v1alpha1.BranchProtectionV3")
+			return errors.Wrap(err, "cannot register webhook for the kind v1alpha1.BranchProtectionv3")
 		}
 	}
 
 	if o.MetricOptions != nil && o.MetricOptions.MRStateMetrics != nil {
 		stateMetricsRecorder := statemetrics.NewMRStateRecorder(
-			mgr.GetClient(), o.Logger, o.MetricOptions.MRStateMetrics, &v1alpha1.BranchProtectionV3List{}, o.MetricOptions.PollStateMetricInterval,
+			mgr.GetClient(), o.Logger, o.MetricOptions.MRStateMetrics, &v1alpha1.BranchProtectionv3List{}, o.MetricOptions.PollStateMetricInterval,
 		)
 		if err := mgr.Add(stateMetricsRecorder); err != nil {
-			return errors.Wrap(err, "cannot register MR state metrics recorder for kind v1alpha1.BranchProtectionV3List")
+			return errors.Wrap(err, "cannot register MR state metrics recorder for kind v1alpha1.BranchProtectionv3List")
 		}
 	}
 
-	r := managed.NewReconciler(mgr, xpresource.ManagedKind(v1alpha1.BranchProtectionV3_GroupVersionKind), opts...)
+	r := managed.NewReconciler(mgr, xpresource.ManagedKind(v1alpha1.BranchProtectionv3_GroupVersionKind), opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
 		WithEventFilter(xpresource.DesiredStateChanged()).
-		Watches(&v1alpha1.BranchProtectionV3{}, eventHandler).
+		Watches(&v1alpha1.BranchProtectionv3{}, eventHandler).
 		Complete(ratelimiter.NewReconciler(name, r, o.GlobalRateLimiter))
 }

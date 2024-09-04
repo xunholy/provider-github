@@ -19,7 +19,7 @@ spec:
 
 ---
 
-apiVersion: github.crossplane.io/v1alpha1
+apiVersion: team.crossplane.io/v1alpha1
 kind: Membership
 metadata:
   annotations:
@@ -34,7 +34,7 @@ spec:
 
 ---
 
-apiVersion: github.crossplane.io/v1alpha1
+apiVersion: team.crossplane.io/v1alpha1
 kind: Membership
 metadata:
   annotations:

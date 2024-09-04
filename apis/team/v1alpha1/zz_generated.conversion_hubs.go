@@ -7,22 +7,22 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
-func (tr *EmuGroupMapping) Hub() {}
+func (tr *GroupMapping) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Members) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *Membership) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Repository) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Settings) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SyncGroupMapping) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Team) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *TeamMembership) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *TeamRepository) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *TeamSettings) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *TeamSyncGroupMapping) Hub() {}

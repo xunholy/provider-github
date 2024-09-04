@@ -7,6 +7,12 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *ActionsSecret) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ActionsVariable) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *EnvironmentSecret) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -23,9 +29,3 @@ func (tr *RepositoryAccessLevel) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *RepositoryPermissions) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Secret) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Variable) Hub() {}
