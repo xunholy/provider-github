@@ -7,10 +7,10 @@ metadata:
     meta.crossplane.io/source: github.com/xunholy/provider-github
     meta.crossplane.io/license: Apache-2.0
     meta.crossplane.io/description: |
-      The unofficial GitHub Crossplane provider enables the management of GitHub resources in Kubernetes.
+      The GitHub Crossplane provider enables the management of GitHub resources in Kubernetes.
 
     meta.crossplane.io/readme: |
-      `provider-github` is an unofficial Crossplane infrastructure provider for
+      `provider-github` is a Crossplane infrastructure provider for
       [GitHub](https://github.com), built using the Terraform GitHub provider.
 
       For instructions and more details, refer to the
