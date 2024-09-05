@@ -65,19 +65,6 @@ type EnvironmentInitParameters struct {
 	// Prevent users from approving workflows runs that they triggered.
 	PreventSelfReview *bool `json:"preventSelfReview,omitempty" tf:"prevent_self_review,omitempty"`
 
-	// The repository of the environment.
-	// The repository of the environment.
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-
-	// Reference to a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
-
-	// Selector for a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
-
 	// The environment reviewers configuration.
 	Reviewers []ReviewersInitParameters `json:"reviewers,omitempty" tf:"reviewers,omitempty"`
 
@@ -104,10 +91,6 @@ type EnvironmentObservation struct {
 	// Whether or not a user who created the job is prevented from approving their own job. Defaults to false.
 	// Prevent users from approving workflows runs that they triggered.
 	PreventSelfReview *bool `json:"preventSelfReview,omitempty" tf:"prevent_self_review,omitempty"`
-
-	// The repository of the environment.
-	// The repository of the environment.
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
 
 	// The environment reviewers configuration.
 	Reviewers []ReviewersObservation `json:"reviewers,omitempty" tf:"reviewers,omitempty"`
@@ -137,20 +120,6 @@ type EnvironmentParameters struct {
 	// Prevent users from approving workflows runs that they triggered.
 	// +kubebuilder:validation:Optional
 	PreventSelfReview *bool `json:"preventSelfReview,omitempty" tf:"prevent_self_review,omitempty"`
-
-	// The repository of the environment.
-	// The repository of the environment.
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
-	// +kubebuilder:validation:Optional
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-
-	// Reference to a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
-
-	// Selector for a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
 
 	// The environment reviewers configuration.
 	// +kubebuilder:validation:Optional

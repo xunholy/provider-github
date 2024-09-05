@@ -359,6 +359,137 @@ type RefNameParameters struct {
 	Include []*string `json:"include" tf:"include,omitempty"`
 }
 
+type RepositoryRulesetInitParameters struct {
+
+	// (Block List) The actors that can bypass the rules in this ruleset. (see below for nested schema)
+	// The actors that can bypass the rules in this ruleset.
+	BypassActors []BypassActorsInitParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
+
+	// (Block List, Max: 1) Parameters for a repository ruleset ref name condition. (see below for nested schema)
+	// Parameters for a repository ruleset ref name condition.
+	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// (String) Possible values for Enforcement are disabled, active, evaluate. Note: evaluate is currently only supported for owners of type organization.
+	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
+	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
+
+	// (String) The name of the ruleset.
+	// The name of the ruleset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Name of the repository to apply rulset to.
+	// Name of the repository to apply rulset to.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
+
+	// (Block List, Min: 1, Max: 1) Rules within the ruleset. (see below for nested schema)
+	// Rules within the ruleset.
+	Rules []RulesInitParameters `json:"rules,omitempty" tf:"rules,omitempty"`
+
+	// (String) Possible values are branch and tag.
+	// Possible values are `branch` and `tag`.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type RepositoryRulesetObservation struct {
+
+	// (Block List) The actors that can bypass the rules in this ruleset. (see below for nested schema)
+	// The actors that can bypass the rules in this ruleset.
+	BypassActors []BypassActorsObservation `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
+
+	// (Block List, Max: 1) Parameters for a repository ruleset ref name condition. (see below for nested schema)
+	// Parameters for a repository ruleset ref name condition.
+	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// (String) Possible values for Enforcement are disabled, active, evaluate. Note: evaluate is currently only supported for owners of type organization.
+	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
+	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
+
+	// (String)
+	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the ruleset.
+	// The name of the ruleset.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) GraphQL global node id for use with v4 API.
+	// GraphQL global node id for use with v4 API.
+	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
+
+	// (String) Name of the repository to apply rulset to.
+	// Name of the repository to apply rulset to.
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) Rules within the ruleset. (see below for nested schema)
+	// Rules within the ruleset.
+	Rules []RulesObservation `json:"rules,omitempty" tf:"rules,omitempty"`
+
+	// (Number) GitHub ID for the ruleset.
+	// GitHub ID for the ruleset.
+	RulesetID *float64 `json:"rulesetId,omitempty" tf:"ruleset_id,omitempty"`
+
+	// (String) Possible values are branch and tag.
+	// Possible values are `branch` and `tag`.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
+type RepositoryRulesetParameters struct {
+
+	// (Block List) The actors that can bypass the rules in this ruleset. (see below for nested schema)
+	// The actors that can bypass the rules in this ruleset.
+	// +kubebuilder:validation:Optional
+	BypassActors []BypassActorsParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
+
+	// (Block List, Max: 1) Parameters for a repository ruleset ref name condition. (see below for nested schema)
+	// Parameters for a repository ruleset ref name condition.
+	// +kubebuilder:validation:Optional
+	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
+	// (String) Possible values for Enforcement are disabled, active, evaluate. Note: evaluate is currently only supported for owners of type organization.
+	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
+	// +kubebuilder:validation:Optional
+	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
+
+	// (String) The name of the ruleset.
+	// The name of the ruleset.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Name of the repository to apply rulset to.
+	// Name of the repository to apply rulset to.
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
+	// +kubebuilder:validation:Optional
+	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
+
+	// Reference to a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
+
+	// Selector for a Repository in repo to populate repository.
+	// +kubebuilder:validation:Optional
+	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
+
+	// (Block List, Min: 1, Max: 1) Rules within the ruleset. (see below for nested schema)
+	// Rules within the ruleset.
+	// +kubebuilder:validation:Optional
+	Rules []RulesParameters `json:"rules,omitempty" tf:"rules,omitempty"`
+
+	// (String) Possible values are branch and tag.
+	// Possible values are `branch` and `tag`.
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+}
+
 type RequiredCheckInitParameters struct {
 
 	// (String) The status check context name that must be present on the commit.
@@ -729,137 +860,6 @@ type RulesRequiredStatusChecksParameters struct {
 	StrictRequiredStatusChecksPolicy *bool `json:"strictRequiredStatusChecksPolicy,omitempty" tf:"strict_required_status_checks_policy,omitempty"`
 }
 
-type RulesetInitParameters struct {
-
-	// (Block List) The actors that can bypass the rules in this ruleset. (see below for nested schema)
-	// The actors that can bypass the rules in this ruleset.
-	BypassActors []BypassActorsInitParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
-
-	// (Block List, Max: 1) Parameters for a repository ruleset ref name condition. (see below for nested schema)
-	// Parameters for a repository ruleset ref name condition.
-	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
-
-	// (String) Possible values for Enforcement are disabled, active, evaluate. Note: evaluate is currently only supported for owners of type organization.
-	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
-	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
-
-	// (String) The name of the ruleset.
-	// The name of the ruleset.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) Name of the repository to apply rulset to.
-	// Name of the repository to apply rulset to.
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-
-	// Reference to a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
-
-	// Selector for a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
-
-	// (Block List, Min: 1, Max: 1) Rules within the ruleset. (see below for nested schema)
-	// Rules within the ruleset.
-	Rules []RulesInitParameters `json:"rules,omitempty" tf:"rules,omitempty"`
-
-	// (String) Possible values are branch and tag.
-	// Possible values are `branch` and `tag`.
-	Target *string `json:"target,omitempty" tf:"target,omitempty"`
-}
-
-type RulesetObservation struct {
-
-	// (Block List) The actors that can bypass the rules in this ruleset. (see below for nested schema)
-	// The actors that can bypass the rules in this ruleset.
-	BypassActors []BypassActorsObservation `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
-
-	// (Block List, Max: 1) Parameters for a repository ruleset ref name condition. (see below for nested schema)
-	// Parameters for a repository ruleset ref name condition.
-	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
-
-	// (String) Possible values for Enforcement are disabled, active, evaluate. Note: evaluate is currently only supported for owners of type organization.
-	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
-	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
-
-	// (String)
-	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
-
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// (String) The name of the ruleset.
-	// The name of the ruleset.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) GraphQL global node id for use with v4 API.
-	// GraphQL global node id for use with v4 API.
-	NodeID *string `json:"nodeId,omitempty" tf:"node_id,omitempty"`
-
-	// (String) Name of the repository to apply rulset to.
-	// Name of the repository to apply rulset to.
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-
-	// (Block List, Min: 1, Max: 1) Rules within the ruleset. (see below for nested schema)
-	// Rules within the ruleset.
-	Rules []RulesObservation `json:"rules,omitempty" tf:"rules,omitempty"`
-
-	// (Number) GitHub ID for the ruleset.
-	// GitHub ID for the ruleset.
-	RulesetID *float64 `json:"rulesetId,omitempty" tf:"ruleset_id,omitempty"`
-
-	// (String) Possible values are branch and tag.
-	// Possible values are `branch` and `tag`.
-	Target *string `json:"target,omitempty" tf:"target,omitempty"`
-}
-
-type RulesetParameters struct {
-
-	// (Block List) The actors that can bypass the rules in this ruleset. (see below for nested schema)
-	// The actors that can bypass the rules in this ruleset.
-	// +kubebuilder:validation:Optional
-	BypassActors []BypassActorsParameters `json:"bypassActors,omitempty" tf:"bypass_actors,omitempty"`
-
-	// (Block List, Max: 1) Parameters for a repository ruleset ref name condition. (see below for nested schema)
-	// Parameters for a repository ruleset ref name condition.
-	// +kubebuilder:validation:Optional
-	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
-
-	// (String) Possible values for Enforcement are disabled, active, evaluate. Note: evaluate is currently only supported for owners of type organization.
-	// Possible values for Enforcement are `disabled`, `active`, `evaluate`. Note: `evaluate` is currently only supported for owners of type `organization`.
-	// +kubebuilder:validation:Optional
-	Enforcement *string `json:"enforcement,omitempty" tf:"enforcement,omitempty"`
-
-	// (String) The name of the ruleset.
-	// The name of the ruleset.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// (String) Name of the repository to apply rulset to.
-	// Name of the repository to apply rulset to.
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Repository
-	// +kubebuilder:validation:Optional
-	Repository *string `json:"repository,omitempty" tf:"repository,omitempty"`
-
-	// Reference to a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositoryRef *v1.Reference `json:"repositoryRef,omitempty" tf:"-"`
-
-	// Selector for a Repository in repo to populate repository.
-	// +kubebuilder:validation:Optional
-	RepositorySelector *v1.Selector `json:"repositorySelector,omitempty" tf:"-"`
-
-	// (Block List, Min: 1, Max: 1) Rules within the ruleset. (see below for nested schema)
-	// Rules within the ruleset.
-	// +kubebuilder:validation:Optional
-	Rules []RulesParameters `json:"rules,omitempty" tf:"rules,omitempty"`
-
-	// (String) Possible values are branch and tag.
-	// Possible values are `branch` and `tag`.
-	// +kubebuilder:validation:Optional
-	Target *string `json:"target,omitempty" tf:"target,omitempty"`
-}
-
 type TagNamePatternInitParameters struct {
 
 	// (String) How this rule will appear to users.
@@ -921,10 +921,10 @@ type TagNamePatternParameters struct {
 	Pattern *string `json:"pattern" tf:"pattern,omitempty"`
 }
 
-// RulesetSpec defines the desired state of Ruleset
-type RulesetSpec struct {
+// RepositoryRulesetSpec defines the desired state of RepositoryRuleset
+type RepositoryRulesetSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RulesetParameters `json:"forProvider"`
+	ForProvider     RepositoryRulesetParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -935,53 +935,53 @@ type RulesetSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RulesetInitParameters `json:"initProvider,omitempty"`
+	InitProvider RepositoryRulesetInitParameters `json:"initProvider,omitempty"`
 }
 
-// RulesetStatus defines the observed state of Ruleset.
-type RulesetStatus struct {
+// RepositoryRulesetStatus defines the observed state of RepositoryRuleset.
+type RepositoryRulesetStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RulesetObservation `json:"atProvider,omitempty"`
+	AtProvider        RepositoryRulesetObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Ruleset is the Schema for the Rulesets API. Creates a GitHub repository ruleset.
+// RepositoryRuleset is the Schema for the RepositoryRulesets API. Creates a GitHub repository ruleset.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,github}
-type Ruleset struct {
+type RepositoryRuleset struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enforcement) || (has(self.initProvider) && has(self.initProvider.enforcement))",message="spec.forProvider.enforcement is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rules) || (has(self.initProvider) && has(self.initProvider.rules))",message="spec.forProvider.rules is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.target) || (has(self.initProvider) && has(self.initProvider.target))",message="spec.forProvider.target is a required parameter"
-	Spec   RulesetSpec   `json:"spec"`
-	Status RulesetStatus `json:"status,omitempty"`
+	Spec   RepositoryRulesetSpec   `json:"spec"`
+	Status RepositoryRulesetStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// RulesetList contains a list of Rulesets
-type RulesetList struct {
+// RepositoryRulesetList contains a list of RepositoryRulesets
+type RepositoryRulesetList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Ruleset `json:"items"`
+	Items           []RepositoryRuleset `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Ruleset_Kind             = "Ruleset"
-	Ruleset_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Ruleset_Kind}.String()
-	Ruleset_KindAPIVersion   = Ruleset_Kind + "." + CRDGroupVersion.String()
-	Ruleset_GroupVersionKind = CRDGroupVersion.WithKind(Ruleset_Kind)
+	RepositoryRuleset_Kind             = "RepositoryRuleset"
+	RepositoryRuleset_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: RepositoryRuleset_Kind}.String()
+	RepositoryRuleset_KindAPIVersion   = RepositoryRuleset_Kind + "." + CRDGroupVersion.String()
+	RepositoryRuleset_GroupVersionKind = CRDGroupVersion.WithKind(RepositoryRuleset_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Ruleset{}, &RulesetList{})
+	SchemeBuilder.Register(&RepositoryRuleset{}, &RepositoryRulesetList{})
 }

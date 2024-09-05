@@ -62,6 +62,15 @@ func (l *DeployKeyList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this EnvironmentDeploymentPolicyList.
+func (l *EnvironmentDeploymentPolicyList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this EnvironmentList.
 func (l *EnvironmentList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -107,8 +116,8 @@ func (l *RepositoryList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this RepositoryWebhookList.
-func (l *RepositoryWebhookList) GetItems() []resource.Managed {
+// GetItems of this RepositoryRulesetList.
+func (l *RepositoryRulesetList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -116,8 +125,8 @@ func (l *RepositoryWebhookList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this RulesetList.
-func (l *RulesetList) GetItems() []resource.Managed {
+// GetItems of this RepositoryWebhookList.
+func (l *RepositoryWebhookList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

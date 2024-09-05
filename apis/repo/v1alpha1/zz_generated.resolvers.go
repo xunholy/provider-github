@@ -265,12 +265,28 @@ func (mg *DeployKey) ResolveReferences(ctx context.Context, c client.Reader) err
 	return nil
 }
 
-// ResolveReferences of this Environment.
-func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this EnvironmentDeploymentPolicy.
+func (mg *EnvironmentDeploymentPolicy) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
 	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Environment),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.EnvironmentRef,
+		Selector:     mg.Spec.ForProvider.EnvironmentSelector,
+		To: reference.To{
+			List:    &EnvironmentList{},
+			Managed: &Environment{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Environment")
+	}
+	mg.Spec.ForProvider.Environment = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.EnvironmentRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
@@ -287,6 +303,22 @@ func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Environment),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.EnvironmentRef,
+		Selector:     mg.Spec.InitProvider.EnvironmentSelector,
+		To: reference.To{
+			List:    &EnvironmentList{},
+			Managed: &Environment{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Environment")
+	}
+	mg.Spec.InitProvider.Environment = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.EnvironmentRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
@@ -487,8 +519,8 @@ func (mg *RepositoryFile) ResolveReferences(ctx context.Context, c client.Reader
 	return nil
 }
 
-// ResolveReferences of this RepositoryWebhook.
-func (mg *RepositoryWebhook) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this RepositoryRuleset.
+func (mg *RepositoryRuleset) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
@@ -529,8 +561,8 @@ func (mg *RepositoryWebhook) ResolveReferences(ctx context.Context, c client.Rea
 	return nil
 }
 
-// ResolveReferences of this Ruleset.
-func (mg *Ruleset) ResolveReferences(ctx context.Context, c client.Reader) error {
+// ResolveReferences of this RepositoryWebhook.
+func (mg *RepositoryWebhook) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse

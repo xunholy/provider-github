@@ -31,6 +31,7 @@ import (
 	"github.com/xunholy/provider-github/config/repositoryautolinkreference"
 	"github.com/xunholy/provider-github/config/repositorydeploykey"
 	"github.com/xunholy/provider-github/config/repositoryenvironment"
+	"github.com/xunholy/provider-github/config/repositoryenvironmentdeploymentpolicy"
 	"github.com/xunholy/provider-github/config/repositoryfile"
 	"github.com/xunholy/provider-github/config/repositorypullrequest"
 	"github.com/xunholy/provider-github/config/repositoryruleset"
@@ -88,6 +89,7 @@ func GetProvider() *ujconfig.Provider {
 		repositoryautolinkreference.Configure,
 		repositorydeploykey.Configure,
 		repositoryenvironment.Configure,
+		repositoryenvironmentdeploymentpolicy.Configure,
 		repositoryfile.Configure,
 		repositorypullrequest.Configure,
 		repositoryruleset.Configure,

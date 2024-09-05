@@ -27,12 +27,13 @@ import (
 	defaultbranch "github.com/xunholy/provider-github/internal/controller/repo/defaultbranch"
 	deploykey "github.com/xunholy/provider-github/internal/controller/repo/deploykey"
 	environment "github.com/xunholy/provider-github/internal/controller/repo/environment"
+	environmentdeploymentpolicy "github.com/xunholy/provider-github/internal/controller/repo/environmentdeploymentpolicy"
 	issuelabels "github.com/xunholy/provider-github/internal/controller/repo/issuelabels"
 	pullrequest "github.com/xunholy/provider-github/internal/controller/repo/pullrequest"
 	repository "github.com/xunholy/provider-github/internal/controller/repo/repository"
 	repositoryfile "github.com/xunholy/provider-github/internal/controller/repo/repositoryfile"
+	repositoryruleset "github.com/xunholy/provider-github/internal/controller/repo/repositoryruleset"
 	repositorywebhook "github.com/xunholy/provider-github/internal/controller/repo/repositorywebhook"
-	ruleset "github.com/xunholy/provider-github/internal/controller/repo/ruleset"
 	tagprotection "github.com/xunholy/provider-github/internal/controller/repo/tagprotection"
 	groupmapping "github.com/xunholy/provider-github/internal/controller/team/groupmapping"
 	members "github.com/xunholy/provider-github/internal/controller/team/members"
@@ -65,12 +66,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		defaultbranch.Setup,
 		deploykey.Setup,
 		environment.Setup,
+		environmentdeploymentpolicy.Setup,
 		issuelabels.Setup,
 		pullrequest.Setup,
 		repository.Setup,
 		repositoryfile.Setup,
+		repositoryruleset.Setup,
 		repositorywebhook.Setup,
-		ruleset.Setup,
 		tagprotection.Setup,
 		groupmapping.Setup,
 		members.Setup,

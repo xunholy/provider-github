@@ -1,0 +1,52 @@
+apiVersion: repo.crossplane.io/v1alpha1
+kind: EnvironmentDeploymentPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/environmentdeploymentpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    branchPattern: releases/*
+    environmentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+
+---
+
+apiVersion: repo.crossplane.io/v1alpha1
+kind: Repository
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/environmentdeploymentpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: tf-acc-test-%s
+
+---
+
+apiVersion: repo.crossplane.io/v1alpha1
+kind: Environment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: repo/v1alpha1/environmentdeploymentpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    deploymentBranchPolicy:
+    - customBranchPolicies: true
+      protectedBranches: false
+    environment: environment/test
+    reviewers:
+    - users:
+      - ${data.github_user.current.id}
+    waitTimer: 10000

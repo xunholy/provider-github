@@ -28,6 +28,9 @@ func (tr *DeployKey) Hub() {}
 func (tr *Environment) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *EnvironmentDeploymentPolicy) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *IssueLabels) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -40,10 +43,10 @@ func (tr *Repository) Hub() {}
 func (tr *RepositoryFile) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *RepositoryWebhook) Hub() {}
+func (tr *RepositoryRuleset) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Ruleset) Hub() {}
+func (tr *RepositoryWebhook) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *TagProtection) Hub() {}

@@ -1,8 +1,8 @@
 apiVersion: repo.crossplane.io/v1alpha1
-kind: Ruleset
+kind: RepositoryRuleset
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/ruleset
+    meta.upbound.io/example-id: repo/v1alpha1/repositoryruleset
   labels:
     testing.upbound.io/example-name: example
   name: example
@@ -39,7 +39,7 @@ apiVersion: repo.crossplane.io/v1alpha1
 kind: Repository
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/ruleset
+    meta.upbound.io/example-id: repo/v1alpha1/repositoryruleset
   labels:
     testing.upbound.io/example-name: example
   name: example

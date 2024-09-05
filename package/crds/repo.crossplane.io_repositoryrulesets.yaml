@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: rulesets.repo.crossplane.io
+  name: repositoryrulesets.repo.crossplane.io
 spec:
   group: repo.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - github
-    kind: Ruleset
-    listKind: RulesetList
-    plural: rulesets
-    singular: ruleset
+    kind: RepositoryRuleset
+    listKind: RepositoryRulesetList
+    plural: repositoryrulesets
+    singular: repositoryruleset
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Ruleset is the Schema for the Rulesets API. Creates a GitHub
-          repository ruleset.
+        description: RepositoryRuleset is the Schema for the RepositoryRulesets API.
+          Creates a GitHub repository ruleset.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: RulesetSpec defines the desired state of Ruleset
+            description: RepositoryRulesetSpec defines the desired state of RepositoryRuleset
             properties:
               deletionPolicy:
                 default: Delete
@@ -1089,7 +1089,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.target)
                 || (has(self.initProvider) && has(self.initProvider.target))'
           status:
-            description: RulesetStatus defines the observed state of Ruleset.
+            description: RepositoryRulesetStatus defines the observed state of RepositoryRuleset.
             properties:
               atProvider:
                 properties:
