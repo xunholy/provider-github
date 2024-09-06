@@ -6551,11 +6551,11 @@ func (in *ReviewersInitParameters) DeepCopyInto(out *ReviewersInitParameters) {
 	*out = *in
 	if in.Teams != nil {
 		in, out := &in.Teams, &out.Teams
-		*out = make([]*string, len(*in))
+		*out = make([]*float64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(string)
+				*out = new(float64)
 				**out = **in
 			}
 		}
@@ -6574,11 +6574,11 @@ func (in *ReviewersInitParameters) DeepCopyInto(out *ReviewersInitParameters) {
 	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
-		*out = make([]*string, len(*in))
+		*out = make([]*float64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(string)
+				*out = new(float64)
 				**out = **in
 			}
 		}
@@ -6612,22 +6612,22 @@ func (in *ReviewersObservation) DeepCopyInto(out *ReviewersObservation) {
 	*out = *in
 	if in.Teams != nil {
 		in, out := &in.Teams, &out.Teams
-		*out = make([]*string, len(*in))
+		*out = make([]*float64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(string)
+				*out = new(float64)
 				**out = **in
 			}
 		}
 	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
-		*out = make([]*string, len(*in))
+		*out = make([]*float64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(string)
+				*out = new(float64)
 				**out = **in
 			}
 		}
@@ -6649,11 +6649,11 @@ func (in *ReviewersParameters) DeepCopyInto(out *ReviewersParameters) {
 	*out = *in
 	if in.Teams != nil {
 		in, out := &in.Teams, &out.Teams
-		*out = make([]*string, len(*in))
+		*out = make([]*float64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(string)
+				*out = new(float64)
 				**out = **in
 			}
 		}
@@ -6672,11 +6672,11 @@ func (in *ReviewersParameters) DeepCopyInto(out *ReviewersParameters) {
 	}
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
-		*out = make([]*string, len(*in))
+		*out = make([]*float64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(string)
+				*out = new(float64)
 				**out = **in
 			}
 		}
