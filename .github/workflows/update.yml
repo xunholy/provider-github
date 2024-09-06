@@ -11,67 +11,78 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Initialize Terraform
         run: terraform init
 
       - name: Get Terraform Provider Resources
-        id: tf-resources
         run: |
-          terraform_resources=$(terraform providers schema -json | jq -r '.provider_schemas."registry.terraform.io/integrations/github".resource_schemas | keys[]')
-          echo "terraform_resources=$terraform_resources" >> $GITHUB_ENV
+          terraform providers schema -json | jq -r '.provider_schemas."registry.terraform.io/integrations/github".resource_schemas | keys[]' | sort > terraform_resources.txt
 
       - name: Extract Crossplane Supported Resources
-        id: crossplane-resources
+        id: crossplane-resourcels
         run: |
-          crossplane_resources=$(grep -oP '\"github_[^\"]+\"' config/external_name.go | sed 's/"//g')
-          echo "crossplane_resources=$crossplane_resources" >> $GITHUB_ENV
+          grep -oP '\"github_[^\"]+\"' config/external_name.go | sed 's/"//g' | sort > crossplane_resources.txt
 
       - name: Compare Resources and Report Missing
         id: compare
         run: |
-          terraform_resources=$(echo "$terraform_resources" | tr ' ' '\n' | sort)
-          crossplane_resources=$(echo "$crossplane_resources" | tr ' ' '\n' | sort)
-          missing_resources=$(comm -23 <(echo "$terraform_resources") <(echo "$crossplane_resources"))
-          echo "missing_resources=$missing_resources" >> $GITHUB_ENV
-          if [ -n "$missing_resources" ]; then
-            echo "The following resources are missing: $missing_resources"
+          comm -23 terraform_resources.txt crossplane_resources.txt > missing_resources.txt
+          if [ -s missing_resources.txt ]; then
+            echo "MISSING_RESOURCES=true" >> $GITHUB_ENV
+            echo "Missing resources found:"
+            cat missing_resources.txt
           else
-            echo "All Terraform resources are supported by Crossplane."
+            echo "No missing resources found."
           fi
 
-      - name: Create GitHub Issue for Missing Resources
-        if: env.missing_resources != ""
+      - name: Create or Update GitHub Issue for Missing Resources
+        if: env.MISSING_RESOURCES == 'true'
         uses: actions/github-script@v6
         with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            const fs = require('fs');
+            const missingResources = fs.readFileSync('missing_resources.txt', 'utf8').trim();
+
             const issueTitle = `Unsupported Terraform Resources in Crossplane`;
             const issueBody = `
             The following Terraform resources are available but not yet supported by the Crossplane provider:
 
             \`\`\`
-            ${{ env.missing_resources }}
+            ${missingResources}
             \`\`\`
 
             Please prioritize adding support for these resources.
+
+            Last updated: ${new Date().toISOString()}
             `;
 
-            const { data: issues } = await github.issues.listForRepo({
+            const { data: issues } = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              state: 'open'
+              state: 'open',
+              labels: ['unsupported-resources']
             });
 
-            const issueExists = issues.some(issue => issue.title === issueTitle);
+            const existingIssue = issues.find(issue => issue.title === issueTitle);
 
-            if (!issueExists) {
-              await github.issues.create({
+            if (existingIssue) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existingIssue.number,
+                body: issueBody
+              });
+              console.log(`Updated existing issue #${existingIssue.number}`);
+            } else {
+              const { data: newIssue } = await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: issueTitle,
-                body: issueBody
+                body: issueBody,
+                labels: ['unsupported-resources']
               });
-            } else {
-              console.log("Issue already exists for unsupported resources.");
+              console.log(`Created new issue #${newIssue.number}`);
             }
