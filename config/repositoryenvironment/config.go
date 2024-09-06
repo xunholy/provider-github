@@ -12,22 +12,22 @@ func Configure(p *config.Provider) {
 
 		// Reference for the repository
 		r.References["repository"] = config.Reference{
-			Type: "github_repository",
+			TerraformName: "github_repository",
 		}
 
 		// Reference for teams in the reviewers block
 		r.References["reviewers.teams"] = config.Reference{
-			Type: "github_team",
+			TerraformName: "github_team",
 		}
 
 		// Reference for users in the reviewers block
 		r.References["reviewers.users"] = config.Reference{
-			Type: "github_user",
+			TerraformName: "github_membership",
 		}
 
-		// Make sure the reviewers block is correctly handled
-		r.LateInitializer = config.LateInitializer{
-			IgnoredFields: []string{"reviewers"},
-		}
+		// // Make sure the reviewers block is correctly handled
+		// r.LateInitializer = config.LateInitializer{
+		// 	IgnoredFields: []string{"reviewers"},
+		// }
 	})
 }

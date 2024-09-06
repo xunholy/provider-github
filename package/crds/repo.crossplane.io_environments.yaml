@@ -117,7 +117,7 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         teamsRefs:
-                          description: References to github_team to populate teams.
+                          description: References to Team in team to populate teams.
                           items:
                             description: A Reference to a named object.
                             properties:
@@ -154,7 +154,7 @@ spec:
                             type: object
                           type: array
                         teamsSelector:
-                          description: Selector for a list of github_team to populate
+                          description: Selector for a list of Team in team to populate
                             teams.
                           properties:
                             matchControllerRef:
@@ -203,7 +203,8 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         usersRefs:
-                          description: References to github_user to populate users.
+                          description: References to Membership in team to populate
+                            users.
                           items:
                             description: A Reference to a named object.
                             properties:
@@ -240,8 +241,8 @@ spec:
                             type: object
                           type: array
                         usersSelector:
-                          description: Selector for a list of github_user to populate
-                            users.
+                          description: Selector for a list of Membership in team to
+                            populate users.
                           properties:
                             matchControllerRef:
                               description: |-
@@ -345,7 +346,7 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         teamsRefs:
-                          description: References to github_team to populate teams.
+                          description: References to Team in team to populate teams.
                           items:
                             description: A Reference to a named object.
                             properties:
@@ -382,7 +383,7 @@ spec:
                             type: object
                           type: array
                         teamsSelector:
-                          description: Selector for a list of github_team to populate
+                          description: Selector for a list of Team in team to populate
                             teams.
                           properties:
                             matchControllerRef:
@@ -431,7 +432,8 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         usersRefs:
-                          description: References to github_user to populate users.
+                          description: References to Membership in team to populate
+                            users.
                           items:
                             description: A Reference to a named object.
                             properties:
@@ -468,8 +470,8 @@ spec:
                             type: object
                           type: array
                         usersSelector:
-                          description: Selector for a list of github_user to populate
-                            users.
+                          description: Selector for a list of Membership in team to
+                            populate users.
                           properties:
                             matchControllerRef:
                               description: |-

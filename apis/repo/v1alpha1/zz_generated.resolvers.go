@@ -10,6 +10,7 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
+	v1alpha1 "github.com/xunholy/provider-github/apis/team/v1alpha1"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -279,8 +280,8 @@ func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) e
 			References:    mg.Spec.ForProvider.Reviewers[i3].TeamsRefs,
 			Selector:      mg.Spec.ForProvider.Reviewers[i3].TeamsSelector,
 			To: reference.To{
-				List:    &github_teamList{},
-				Managed: &github_team{},
+				List:    &v1alpha1.TeamList{},
+				Managed: &v1alpha1.Team{},
 			},
 		})
 		if err != nil {
@@ -297,8 +298,8 @@ func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) e
 			References:    mg.Spec.ForProvider.Reviewers[i3].UsersRefs,
 			Selector:      mg.Spec.ForProvider.Reviewers[i3].UsersSelector,
 			To: reference.To{
-				List:    &github_userList{},
-				Managed: &github_user{},
+				List:    &v1alpha1.MembershipList{},
+				Managed: &v1alpha1.Membership{},
 			},
 		})
 		if err != nil {
@@ -315,8 +316,8 @@ func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) e
 			References:    mg.Spec.InitProvider.Reviewers[i3].TeamsRefs,
 			Selector:      mg.Spec.InitProvider.Reviewers[i3].TeamsSelector,
 			To: reference.To{
-				List:    &github_teamList{},
-				Managed: &github_team{},
+				List:    &v1alpha1.TeamList{},
+				Managed: &v1alpha1.Team{},
 			},
 		})
 		if err != nil {
@@ -333,8 +334,8 @@ func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) e
 			References:    mg.Spec.InitProvider.Reviewers[i3].UsersRefs,
 			Selector:      mg.Spec.InitProvider.Reviewers[i3].UsersSelector,
 			To: reference.To{
-				List:    &github_userList{},
-				Managed: &github_user{},
+				List:    &v1alpha1.MembershipList{},
+				Managed: &v1alpha1.Membership{},
 			},
 		})
 		if err != nil {
