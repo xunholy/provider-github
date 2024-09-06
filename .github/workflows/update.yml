@@ -42,7 +42,7 @@ jobs:
           fi
 
       - name: Create GitHub Issue for Missing Resources
-        if: env.missing_resources != ""
+        if: ${{ env.missing_resources != '' }}
         uses: actions/github-script@v6
         with:
           script: |
