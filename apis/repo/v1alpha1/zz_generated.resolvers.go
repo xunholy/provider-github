@@ -265,6 +265,89 @@ func (mg *DeployKey) ResolveReferences(ctx context.Context, c client.Reader) err
 	return nil
 }
 
+// ResolveReferences of this Environment.
+func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var mrsp reference.MultiResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Reviewers[i3].Teams),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.ForProvider.Reviewers[i3].TeamsRefs,
+			Selector:      mg.Spec.ForProvider.Reviewers[i3].TeamsSelector,
+			To: reference.To{
+				List:    &github_teamList{},
+				Managed: &github_team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Teams")
+		}
+		mg.Spec.ForProvider.Reviewers[i3].Teams = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Reviewers[i3].Users),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.ForProvider.Reviewers[i3].UsersRefs,
+			Selector:      mg.Spec.ForProvider.Reviewers[i3].UsersSelector,
+			To: reference.To{
+				List:    &github_userList{},
+				Managed: &github_user{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Users")
+		}
+		mg.Spec.ForProvider.Reviewers[i3].Users = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Reviewers[i3].Teams),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.InitProvider.Reviewers[i3].TeamsRefs,
+			Selector:      mg.Spec.InitProvider.Reviewers[i3].TeamsSelector,
+			To: reference.To{
+				List:    &github_teamList{},
+				Managed: &github_team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Teams")
+		}
+		mg.Spec.InitProvider.Reviewers[i3].Teams = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Reviewers[i3].Users),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.InitProvider.Reviewers[i3].UsersRefs,
+			Selector:      mg.Spec.InitProvider.Reviewers[i3].UsersSelector,
+			To: reference.To{
+				List:    &github_userList{},
+				Managed: &github_user{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Users")
+		}
+		mg.Spec.InitProvider.Reviewers[i3].Users = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this EnvironmentDeploymentPolicy.
 func (mg *EnvironmentDeploymentPolicy) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)

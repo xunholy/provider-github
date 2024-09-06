@@ -14,8 +14,8 @@ spec:
     environment: example
     preventSelfReview: true
     reviewers:
-    - users:
-      - ${data.github_user.current.id}
+    - usersRefs:
+      - name: github_user
 
 ---
 

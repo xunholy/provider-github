@@ -47,6 +47,6 @@ spec:
       protectedBranches: false
     environment: environment/test
     reviewers:
-    - users:
-      - ${data.github_user.current.id}
+    - usersRefs:
+      - name: github_user
     waitTimer: 10000

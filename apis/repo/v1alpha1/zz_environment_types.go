@@ -135,13 +135,31 @@ type ReviewersInitParameters struct {
 
 	// Up to 6 IDs for teams who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// Up to 6 IDs for teams who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
+	// +crossplane:generate:reference:type=github_team
 	// +listType=set
-	Teams []*float64 `json:"teams,omitempty" tf:"teams,omitempty"`
+	Teams []*string `json:"teams,omitempty" tf:"teams,omitempty"`
+
+	// References to github_team to populate teams.
+	// +kubebuilder:validation:Optional
+	TeamsRefs []v1.Reference `json:"teamsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of github_team to populate teams.
+	// +kubebuilder:validation:Optional
+	TeamsSelector *v1.Selector `json:"teamsSelector,omitempty" tf:"-"`
 
 	// Up to 6 IDs for users who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// Up to 6 IDs for users who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
+	// +crossplane:generate:reference:type=github_user
 	// +listType=set
-	Users []*float64 `json:"users,omitempty" tf:"users,omitempty"`
+	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
+
+	// References to github_user to populate users.
+	// +kubebuilder:validation:Optional
+	UsersRefs []v1.Reference `json:"usersRefs,omitempty" tf:"-"`
+
+	// Selector for a list of github_user to populate users.
+	// +kubebuilder:validation:Optional
+	UsersSelector *v1.Selector `json:"usersSelector,omitempty" tf:"-"`
 }
 
 type ReviewersObservation struct {
@@ -149,27 +167,45 @@ type ReviewersObservation struct {
 	// Up to 6 IDs for teams who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// Up to 6 IDs for teams who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// +listType=set
-	Teams []*float64 `json:"teams,omitempty" tf:"teams,omitempty"`
+	Teams []*string `json:"teams,omitempty" tf:"teams,omitempty"`
 
 	// Up to 6 IDs for users who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// Up to 6 IDs for users who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// +listType=set
-	Users []*float64 `json:"users,omitempty" tf:"users,omitempty"`
+	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 }
 
 type ReviewersParameters struct {
 
 	// Up to 6 IDs for teams who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// Up to 6 IDs for teams who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
+	// +crossplane:generate:reference:type=github_team
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	Teams []*float64 `json:"teams,omitempty" tf:"teams,omitempty"`
+	Teams []*string `json:"teams,omitempty" tf:"teams,omitempty"`
+
+	// References to github_team to populate teams.
+	// +kubebuilder:validation:Optional
+	TeamsRefs []v1.Reference `json:"teamsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of github_team to populate teams.
+	// +kubebuilder:validation:Optional
+	TeamsSelector *v1.Selector `json:"teamsSelector,omitempty" tf:"-"`
 
 	// Up to 6 IDs for users who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
 	// Up to 6 IDs for users who may review jobs that reference the environment. Reviewers must have at least read access to the repository. Only one of the required reviewers needs to approve the job for it to proceed.
+	// +crossplane:generate:reference:type=github_user
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	Users []*float64 `json:"users,omitempty" tf:"users,omitempty"`
+	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
+
+	// References to github_user to populate users.
+	// +kubebuilder:validation:Optional
+	UsersRefs []v1.Reference `json:"usersRefs,omitempty" tf:"-"`
+
+	// Selector for a list of github_user to populate users.
+	// +kubebuilder:validation:Optional
+	UsersSelector *v1.Selector `json:"usersSelector,omitempty" tf:"-"`
 }
 
 // EnvironmentSpec defines the desired state of Environment
