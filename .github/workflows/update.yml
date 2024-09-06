@@ -1,79 +1,77 @@
----
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.jsonn
-name: Terraform Provider Update Check
+name: Compare Terraform and Crossplane Resources
 
 on:
   schedule:
     - cron: "0 0 * * *" # Run daily at midnight UTC
   workflow_dispatch: # Allow manual triggering
 
-env:
-  PROVIDER_NAME: github # Replace with your upstream provider name
-  CROSSPLANE_PROVIDER_NAME: provider-github # Replace with your Crossplane provider name
-
 jobs:
-  check-terraform-provider:
+  compare-resources:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+        uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5
-        with:
-          go-version: "1.17"
+      - name: Initialize Terraform
+        run: terraform init
 
-      - name: Get latest Terraform provider version
-        id: tf-version
+      - name: Get Terraform Provider Resources
+        id: tf-resources
         run: |
-          LATEST_VERSION=$(curl -s https://api.github.com/repos/hashicorp/terraform-provider-${{ env.PROVIDER_NAME }}/releases/latest | jq -r .tag_name | sed 's/v//')
-          echo "::set-output name=version::$LATEST_VERSION"
+          terraform_resources=$(terraform providers schema -json | jq -r '.provider_schemas."registry.terraform.io/integrations/github".resource_schemas | keys[]')
+          echo "terraform_resources=$terraform_resources" >> $GITHUB_ENV
 
-      - name: Check current version
-        id: current-version
+      - name: Extract Crossplane Supported Resources
+        id: crossplane-resources
         run: |
-          CURRENT_VERSION=$(grep -oP '(?<=Version = ")[^"]*' provider/provider.go)
-          echo "::set-output name=version::$CURRENT_VERSION"
+          crossplane_resources=$(grep -oP '\"github_[^\"]+\"' config/external_name.go | sed 's/"//g')
+          echo "crossplane_resources=$crossplane_resources" >> $GITHUB_ENV
 
-      - name: Compare versions
-        id: version-compare
+      - name: Compare Resources and Report Missing
+        id: compare
         run: |
-          if [ "${{ steps.tf-version.outputs.version }}" != "${{ steps.current-version.outputs.version }}" ]; then
-            echo "::set-output name=update_needed::true"
+          terraform_resources=$(echo "$terraform_resources" | tr ' ' '\n' | sort)
+          crossplane_resources=$(echo "$crossplane_resources" | tr ' ' '\n' | sort)
+          missing_resources=$(comm -23 <(echo "$terraform_resources") <(echo "$crossplane_resources"))
+          echo "missing_resources=$missing_resources" >> $GITHUB_ENV
+          if [ -n "$missing_resources" ]; then
+            echo "The following resources are missing: $missing_resources"
           else
-            echo "::set-output name=update_needed::false"
+            echo "All Terraform resources are supported by Crossplane."
           fi
 
-      - name: Update provider version
-        if: steps.version-compare.outputs.update_needed == 'true'
-        run: |
-          sed -i 's/Version = ".*"/Version = "${{ steps.tf-version.outputs.version }}"/' provider/provider.go
-
-      - name: Generate Crossplane resources
-        if: steps.version-compare.outputs.update_needed == 'true'
-        run: |
-          go run ./cmd/generator/main.go
-
-      - name: Check for unsupported resources
-        if: steps.version-compare.outputs.update_needed == 'true'
-        id: unsupported-resources
-        run: |
-          UNSUPPORTED=$(go run ./cmd/generator/main.go --list-unsupported)
-          echo "::set-output name=list::$UNSUPPORTED"
-
-      - name: Create Pull Request
-        if: steps.version-compare.outputs.update_needed == 'true'
-        uses: peter-evans/create-pull-request@8867c4aba1b742c39f8d0ba35429c2dfa4b6cb20 # v7
+      - name: Create GitHub Issue for Missing Resources
+        if: env.missing_resources != ""
+        uses: actions/github-script@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Update ${{ env.CROSSPLANE_PROVIDER_NAME }} to version ${{ steps.tf-version.outputs.version }}"
-          title: "Update ${{ env.CROSSPLANE_PROVIDER_NAME }} to version ${{ steps.tf-version.outputs.version }}"
-          body: |
-            This PR updates the ${{ env.CROSSPLANE_PROVIDER_NAME }} to version ${{ steps.tf-version.outputs.version }}.
+          script: |
+            const issueTitle = `Unsupported Terraform Resources in Crossplane`;
+            const issueBody = `
+            The following Terraform resources are available but not yet supported by the Crossplane provider:
 
-            Unsupported resources:
-            ```
-            ${{ steps.unsupported-resources.outputs.list }}
-            ```
-          branch: update-provider-version
-          base: main
+            \`\`\`
+            ${{ env.missing_resources }}
+            \`\`\`
+
+            Please prioritize adding support for these resources.
+            `;
+
+            const { data: issues } = await github.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+
+            const issueExists = issues.some(issue => issue.title === issueTitle);
+
+            if (!issueExists) {
+              await github.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issueTitle,
+                body: issueBody
+              });
+            } else {
+              console.log("Issue already exists for unsupported resources.");
+            }
