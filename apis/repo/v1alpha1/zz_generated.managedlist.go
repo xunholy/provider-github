@@ -71,15 +71,6 @@ func (l *EnvironmentDeploymentPolicyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this EnvironmentList.
-func (l *EnvironmentList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this IssueLabelsList.
 func (l *IssueLabelsList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -91,6 +82,15 @@ func (l *IssueLabelsList) GetItems() []resource.Managed {
 
 // GetItems of this PullRequestList.
 func (l *PullRequestList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RepositoryEnvironmentList.
+func (l *RepositoryEnvironmentList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

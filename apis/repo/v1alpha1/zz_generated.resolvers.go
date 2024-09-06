@@ -266,89 +266,6 @@ func (mg *DeployKey) ResolveReferences(ctx context.Context, c client.Reader) err
 	return nil
 }
 
-// ResolveReferences of this Environment.
-func (mg *Environment) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
-
-	var mrsp reference.MultiResolutionResponse
-	var err error
-
-	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
-		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-			CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.Reviewers[i3].Teams),
-			Extract:       reference.ExternalName(),
-			References:    mg.Spec.ForProvider.Reviewers[i3].TeamsRefs,
-			Selector:      mg.Spec.ForProvider.Reviewers[i3].TeamsSelector,
-			To: reference.To{
-				List:    &v1alpha1.TeamList{},
-				Managed: &v1alpha1.Team{},
-			},
-		})
-		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Teams")
-		}
-		mg.Spec.ForProvider.Reviewers[i3].Teams = reference.ToFloatPtrValues(mrsp.ResolvedValues)
-		mg.Spec.ForProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
-
-	}
-	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
-		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-			CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.Reviewers[i3].Users),
-			Extract:       reference.ExternalName(),
-			References:    mg.Spec.ForProvider.Reviewers[i3].UsersRefs,
-			Selector:      mg.Spec.ForProvider.Reviewers[i3].UsersSelector,
-			To: reference.To{
-				List:    &v1alpha1.MembershipList{},
-				Managed: &v1alpha1.Membership{},
-			},
-		})
-		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Users")
-		}
-		mg.Spec.ForProvider.Reviewers[i3].Users = reference.ToFloatPtrValues(mrsp.ResolvedValues)
-		mg.Spec.ForProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
-
-	}
-	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
-		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-			CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.Reviewers[i3].Teams),
-			Extract:       reference.ExternalName(),
-			References:    mg.Spec.InitProvider.Reviewers[i3].TeamsRefs,
-			Selector:      mg.Spec.InitProvider.Reviewers[i3].TeamsSelector,
-			To: reference.To{
-				List:    &v1alpha1.TeamList{},
-				Managed: &v1alpha1.Team{},
-			},
-		})
-		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Teams")
-		}
-		mg.Spec.InitProvider.Reviewers[i3].Teams = reference.ToFloatPtrValues(mrsp.ResolvedValues)
-		mg.Spec.InitProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
-
-	}
-	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
-		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-			CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.Reviewers[i3].Users),
-			Extract:       reference.ExternalName(),
-			References:    mg.Spec.InitProvider.Reviewers[i3].UsersRefs,
-			Selector:      mg.Spec.InitProvider.Reviewers[i3].UsersSelector,
-			To: reference.To{
-				List:    &v1alpha1.MembershipList{},
-				Managed: &v1alpha1.Membership{},
-			},
-		})
-		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Users")
-		}
-		mg.Spec.InitProvider.Reviewers[i3].Users = reference.ToFloatPtrValues(mrsp.ResolvedValues)
-		mg.Spec.InitProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
-
-	}
-
-	return nil
-}
-
 // ResolveReferences of this EnvironmentDeploymentPolicy.
 func (mg *EnvironmentDeploymentPolicy) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -362,8 +279,8 @@ func (mg *EnvironmentDeploymentPolicy) ResolveReferences(ctx context.Context, c 
 		Reference:    mg.Spec.ForProvider.EnvironmentRef,
 		Selector:     mg.Spec.ForProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &EnvironmentList{},
-			Managed: &Environment{},
+			List:    &RepositoryEnvironmentList{},
+			Managed: &RepositoryEnvironment{},
 		},
 	})
 	if err != nil {
@@ -394,8 +311,8 @@ func (mg *EnvironmentDeploymentPolicy) ResolveReferences(ctx context.Context, c 
 		Reference:    mg.Spec.InitProvider.EnvironmentRef,
 		Selector:     mg.Spec.InitProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &EnvironmentList{},
-			Managed: &Environment{},
+			List:    &RepositoryEnvironmentList{},
+			Managed: &RepositoryEnvironment{},
 		},
 	})
 	if err != nil {
@@ -525,6 +442,89 @@ func (mg *PullRequest) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.InitProvider.HeadRef = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.HeadRefRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this RepositoryEnvironment.
+func (mg *RepositoryEnvironment) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var mrsp reference.MultiResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.Reviewers[i3].Teams),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.ForProvider.Reviewers[i3].TeamsRefs,
+			Selector:      mg.Spec.ForProvider.Reviewers[i3].TeamsSelector,
+			To: reference.To{
+				List:    &v1alpha1.TeamList{},
+				Managed: &v1alpha1.Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Teams")
+		}
+		mg.Spec.ForProvider.Reviewers[i3].Teams = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.Reviewers[i3].Users),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.ForProvider.Reviewers[i3].UsersRefs,
+			Selector:      mg.Spec.ForProvider.Reviewers[i3].UsersSelector,
+			To: reference.To{
+				List:    &v1alpha1.MembershipList{},
+				Managed: &v1alpha1.Membership{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Users")
+		}
+		mg.Spec.ForProvider.Reviewers[i3].Users = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.Reviewers[i3].Teams),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.InitProvider.Reviewers[i3].TeamsRefs,
+			Selector:      mg.Spec.InitProvider.Reviewers[i3].TeamsSelector,
+			To: reference.To{
+				List:    &v1alpha1.TeamList{},
+				Managed: &v1alpha1.Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Teams")
+		}
+		mg.Spec.InitProvider.Reviewers[i3].Teams = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.Reviewers[i3].Users),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.InitProvider.Reviewers[i3].UsersRefs,
+			Selector:      mg.Spec.InitProvider.Reviewers[i3].UsersSelector,
+			To: reference.To{
+				List:    &v1alpha1.MembershipList{},
+				Managed: &v1alpha1.Membership{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Users")
+		}
+		mg.Spec.InitProvider.Reviewers[i3].Users = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
+
+	}
 
 	return nil
 }

@@ -48,7 +48,7 @@ type DeploymentBranchPolicyParameters struct {
 	ProtectedBranches *bool `json:"protectedBranches" tf:"protected_branches,omitempty"`
 }
 
-type EnvironmentInitParameters struct {
+type RepositoryEnvironmentInitParameters struct {
 
 	// Can repository admins bypass the environment protections.  Defaults to true.
 	// Can Admins bypass deployment protections
@@ -73,7 +73,7 @@ type EnvironmentInitParameters struct {
 	WaitTimer *float64 `json:"waitTimer,omitempty" tf:"wait_timer,omitempty"`
 }
 
-type EnvironmentObservation struct {
+type RepositoryEnvironmentObservation struct {
 
 	// Can repository admins bypass the environment protections.  Defaults to true.
 	// Can Admins bypass deployment protections
@@ -100,7 +100,7 @@ type EnvironmentObservation struct {
 	WaitTimer *float64 `json:"waitTimer,omitempty" tf:"wait_timer,omitempty"`
 }
 
-type EnvironmentParameters struct {
+type RepositoryEnvironmentParameters struct {
 
 	// Can repository admins bypass the environment protections.  Defaults to true.
 	// Can Admins bypass deployment protections
@@ -208,10 +208,10 @@ type ReviewersParameters struct {
 	UsersSelector *v1.Selector `json:"usersSelector,omitempty" tf:"-"`
 }
 
-// EnvironmentSpec defines the desired state of Environment
-type EnvironmentSpec struct {
+// RepositoryEnvironmentSpec defines the desired state of RepositoryEnvironment
+type RepositoryEnvironmentSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     EnvironmentParameters `json:"forProvider"`
+	ForProvider     RepositoryEnvironmentParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -222,50 +222,50 @@ type EnvironmentSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider EnvironmentInitParameters `json:"initProvider,omitempty"`
+	InitProvider RepositoryEnvironmentInitParameters `json:"initProvider,omitempty"`
 }
 
-// EnvironmentStatus defines the observed state of Environment.
-type EnvironmentStatus struct {
+// RepositoryEnvironmentStatus defines the observed state of RepositoryEnvironment.
+type RepositoryEnvironmentStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        EnvironmentObservation `json:"atProvider,omitempty"`
+	AtProvider        RepositoryEnvironmentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Environment is the Schema for the Environments API. Creates and manages environments for GitHub repositories
+// RepositoryEnvironment is the Schema for the RepositoryEnvironments API. Creates and manages environments for GitHub repositories
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,github}
-type Environment struct {
+type RepositoryEnvironment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.environment) || (has(self.initProvider) && has(self.initProvider.environment))",message="spec.forProvider.environment is a required parameter"
-	Spec   EnvironmentSpec   `json:"spec"`
-	Status EnvironmentStatus `json:"status,omitempty"`
+	Spec   RepositoryEnvironmentSpec   `json:"spec"`
+	Status RepositoryEnvironmentStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// EnvironmentList contains a list of Environments
-type EnvironmentList struct {
+// RepositoryEnvironmentList contains a list of RepositoryEnvironments
+type RepositoryEnvironmentList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Environment `json:"items"`
+	Items           []RepositoryEnvironment `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Environment_Kind             = "Environment"
-	Environment_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Environment_Kind}.String()
-	Environment_KindAPIVersion   = Environment_Kind + "." + CRDGroupVersion.String()
-	Environment_GroupVersionKind = CRDGroupVersion.WithKind(Environment_Kind)
+	RepositoryEnvironment_Kind             = "RepositoryEnvironment"
+	RepositoryEnvironment_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: RepositoryEnvironment_Kind}.String()
+	RepositoryEnvironment_KindAPIVersion   = RepositoryEnvironment_Kind + "." + CRDGroupVersion.String()
+	RepositoryEnvironment_GroupVersionKind = CRDGroupVersion.WithKind(RepositoryEnvironment_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Environment{}, &EnvironmentList{})
+	SchemeBuilder.Register(&RepositoryEnvironment{}, &RepositoryEnvironmentList{})
 }

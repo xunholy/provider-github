@@ -26,11 +26,11 @@ import (
 	branchprotectionv3 "github.com/xunholy/provider-github/internal/controller/repo/branchprotectionv3"
 	defaultbranch "github.com/xunholy/provider-github/internal/controller/repo/defaultbranch"
 	deploykey "github.com/xunholy/provider-github/internal/controller/repo/deploykey"
-	environment "github.com/xunholy/provider-github/internal/controller/repo/environment"
 	environmentdeploymentpolicy "github.com/xunholy/provider-github/internal/controller/repo/environmentdeploymentpolicy"
 	issuelabels "github.com/xunholy/provider-github/internal/controller/repo/issuelabels"
 	pullrequest "github.com/xunholy/provider-github/internal/controller/repo/pullrequest"
 	repository "github.com/xunholy/provider-github/internal/controller/repo/repository"
+	repositoryenvironment "github.com/xunholy/provider-github/internal/controller/repo/repositoryenvironment"
 	repositoryfile "github.com/xunholy/provider-github/internal/controller/repo/repositoryfile"
 	repositoryruleset "github.com/xunholy/provider-github/internal/controller/repo/repositoryruleset"
 	repositorywebhook "github.com/xunholy/provider-github/internal/controller/repo/repositorywebhook"
@@ -65,11 +65,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		branchprotectionv3.Setup,
 		defaultbranch.Setup,
 		deploykey.Setup,
-		environment.Setup,
 		environmentdeploymentpolicy.Setup,
 		issuelabels.Setup,
 		pullrequest.Setup,
 		repository.Setup,
+		repositoryenvironment.Setup,
 		repositoryfile.Setup,
 		repositoryruleset.Setup,
 		repositorywebhook.Setup,

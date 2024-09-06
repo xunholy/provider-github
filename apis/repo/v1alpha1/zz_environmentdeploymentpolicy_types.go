@@ -21,14 +21,14 @@ type EnvironmentDeploymentPolicyInitParameters struct {
 
 	// The name of the environment.
 	// The name of the environment.
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Environment
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.RepositoryEnvironment
 	Environment *string `json:"environment,omitempty" tf:"environment,omitempty"`
 
-	// Reference to a Environment in repo to populate environment.
+	// Reference to a RepositoryEnvironment in repo to populate environment.
 	// +kubebuilder:validation:Optional
 	EnvironmentRef *v1.Reference `json:"environmentRef,omitempty" tf:"-"`
 
-	// Selector for a Environment in repo to populate environment.
+	// Selector for a RepositoryEnvironment in repo to populate environment.
 	// +kubebuilder:validation:Optional
 	EnvironmentSelector *v1.Selector `json:"environmentSelector,omitempty" tf:"-"`
 
@@ -72,15 +72,15 @@ type EnvironmentDeploymentPolicyParameters struct {
 
 	// The name of the environment.
 	// The name of the environment.
-	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.Environment
+	// +crossplane:generate:reference:type=github.com/xunholy/provider-github/apis/repo/v1alpha1.RepositoryEnvironment
 	// +kubebuilder:validation:Optional
 	Environment *string `json:"environment,omitempty" tf:"environment,omitempty"`
 
-	// Reference to a Environment in repo to populate environment.
+	// Reference to a RepositoryEnvironment in repo to populate environment.
 	// +kubebuilder:validation:Optional
 	EnvironmentRef *v1.Reference `json:"environmentRef,omitempty" tf:"-"`
 
-	// Selector for a Environment in repo to populate environment.
+	// Selector for a RepositoryEnvironment in repo to populate environment.
 	// +kubebuilder:validation:Optional
 	EnvironmentSelector *v1.Selector `json:"environmentSelector,omitempty" tf:"-"`
 

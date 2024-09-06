@@ -8,6 +8,7 @@ import (
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("github_repository_environment", func(r *config.Resource) {
 
+		r.Kind = "RepositoryEnvironment"
 		r.ShortGroup = "repo"
 
 		// Reference for the repository

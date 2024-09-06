@@ -1,8 +1,8 @@
 apiVersion: repo.crossplane.io/v1alpha1
-kind: Environment
+kind: RepositoryEnvironment
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/environment
+    meta.upbound.io/example-id: repo/v1alpha1/repositoryenvironment
   labels:
     testing.upbound.io/example-name: example
   name: example
@@ -23,7 +23,7 @@ apiVersion: repo.crossplane.io/v1alpha1
 kind: Repository
 metadata:
   annotations:
-    meta.upbound.io/example-id: repo/v1alpha1/environment
+    meta.upbound.io/example-id: repo/v1alpha1/repositoryenvironment
   labels:
     testing.upbound.io/example-name: example
   name: example

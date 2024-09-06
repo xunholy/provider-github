@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: environments.repo.crossplane.io
+  name: repositoryenvironments.repo.crossplane.io
 spec:
   group: repo.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - github
-    kind: Environment
-    listKind: EnvironmentList
-    plural: environments
-    singular: environment
+    kind: RepositoryEnvironment
+    listKind: RepositoryEnvironmentList
+    plural: repositoryenvironments
+    singular: repositoryenvironment
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Environment is the Schema for the Environments API. Creates and
-          manages environments for GitHub repositories
+        description: RepositoryEnvironment is the Schema for the RepositoryEnvironments
+          API. Creates and manages environments for GitHub repositories
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: EnvironmentSpec defines the desired state of Environment
+            description: RepositoryEnvironmentSpec defines the desired state of RepositoryEnvironment
             properties:
               deletionPolicy:
                 default: Delete
@@ -691,7 +691,8 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.environment)
                 || (has(self.initProvider) && has(self.initProvider.environment))'
           status:
-            description: EnvironmentStatus defines the observed state of Environment.
+            description: RepositoryEnvironmentStatus defines the observed state of
+              RepositoryEnvironment.
             properties:
               atProvider:
                 properties:
