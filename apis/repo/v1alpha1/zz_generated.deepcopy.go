@@ -4091,6 +4091,21 @@ func (in *RepositoryEnvironmentInitParameters) DeepCopyInto(out *RepositoryEnvir
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Repository != nil {
+		in, out := &in.Repository, &out.Repository
+		*out = new(string)
+		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Reviewers != nil {
 		in, out := &in.Reviewers, &out.Reviewers
 		*out = make([]ReviewersInitParameters, len(*in))
@@ -4177,6 +4192,11 @@ func (in *RepositoryEnvironmentObservation) DeepCopyInto(out *RepositoryEnvironm
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Repository != nil {
+		in, out := &in.Repository, &out.Repository
+		*out = new(string)
+		**out = **in
+	}
 	if in.Reviewers != nil {
 		in, out := &in.Reviewers, &out.Reviewers
 		*out = make([]ReviewersObservation, len(*in))
@@ -4225,6 +4245,21 @@ func (in *RepositoryEnvironmentParameters) DeepCopyInto(out *RepositoryEnvironme
 		in, out := &in.PreventSelfReview, &out.PreventSelfReview
 		*out = new(bool)
 		**out = **in
+	}
+	if in.Repository != nil {
+		in, out := &in.Repository, &out.Repository
+		*out = new(string)
+		**out = **in
+	}
+	if in.RepositoryRef != nil {
+		in, out := &in.RepositoryRef, &out.RepositoryRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RepositorySelector != nil {
+		in, out := &in.RepositorySelector, &out.RepositorySelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Reviewers != nil {
 		in, out := &in.Reviewers, &out.Reviewers

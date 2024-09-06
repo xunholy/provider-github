@@ -13,6 +13,9 @@ spec:
       protectedBranches: true
     environment: example
     preventSelfReview: true
+    repositorySelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     reviewers:
     - usersRefs:
       - name: github_user

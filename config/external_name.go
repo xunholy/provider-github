@@ -29,7 +29,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"github_repository":                               config.IdentifierFromProvider,
 	"github_repository_autolink_reference":            config.IdentifierFromProvider,
 	"github_repository_deploy_key":                    config.IdentifierFromProvider,
-	"github_repository_environment":                   config.TemplatedStringAsIdentifier("repository", "{{ .external_name }}:"),
+	"github_repository_environment":                   config.IdentifierFromProvider,
 	"github_repository_environment_deployment_policy": config.IdentifierFromProvider,
 	"github_repository_file":                          config.IdentifierFromProvider,
 	"github_repository_pull_request":                  config.IdentifierFromProvider,

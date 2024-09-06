@@ -12,6 +12,7 @@ func Configure(p *config.Provider) {
 		r.References["repository"] = config.Reference{
 			TerraformName: "github_repository",
 		}
+
 		r.References["branch"] = config.Reference{
 			TerraformName: "github_branch",
 		}
