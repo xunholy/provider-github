@@ -33,7 +33,7 @@ spec:
 ---
 
 apiVersion: repo.crossplane.io/v1alpha1
-kind: Environment
+kind: RepositoryEnvironment
 metadata:
   annotations:
     meta.upbound.io/example-id: repo/v1alpha1/environmentdeploymentpolicy
@@ -47,6 +47,6 @@ spec:
       protectedBranches: false
     environment: environment/test
     reviewers:
-    - users:
-      - ${data.github_user.current.id}
+    - usersRefs:
+      - name: github_user
     waitTimer: 10000

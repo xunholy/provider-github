@@ -10,6 +10,7 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
+	v1alpha1 "github.com/xunholy/provider-github/apis/team/v1alpha1"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -278,8 +279,8 @@ func (mg *EnvironmentDeploymentPolicy) ResolveReferences(ctx context.Context, c 
 		Reference:    mg.Spec.ForProvider.EnvironmentRef,
 		Selector:     mg.Spec.ForProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &EnvironmentList{},
-			Managed: &Environment{},
+			List:    &RepositoryEnvironmentList{},
+			Managed: &RepositoryEnvironment{},
 		},
 	})
 	if err != nil {
@@ -310,8 +311,8 @@ func (mg *EnvironmentDeploymentPolicy) ResolveReferences(ctx context.Context, c 
 		Reference:    mg.Spec.InitProvider.EnvironmentRef,
 		Selector:     mg.Spec.InitProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &EnvironmentList{},
-			Managed: &Environment{},
+			List:    &RepositoryEnvironmentList{},
+			Managed: &RepositoryEnvironment{},
 		},
 	})
 	if err != nil {
@@ -441,6 +442,89 @@ func (mg *PullRequest) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.InitProvider.HeadRef = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.HeadRefRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this RepositoryEnvironment.
+func (mg *RepositoryEnvironment) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var mrsp reference.MultiResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.Reviewers[i3].Teams),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.ForProvider.Reviewers[i3].TeamsRefs,
+			Selector:      mg.Spec.ForProvider.Reviewers[i3].TeamsSelector,
+			To: reference.To{
+				List:    &v1alpha1.TeamList{},
+				Managed: &v1alpha1.Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Teams")
+		}
+		mg.Spec.ForProvider.Reviewers[i3].Teams = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.Reviewers[i3].Users),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.ForProvider.Reviewers[i3].UsersRefs,
+			Selector:      mg.Spec.ForProvider.Reviewers[i3].UsersSelector,
+			To: reference.To{
+				List:    &v1alpha1.MembershipList{},
+				Managed: &v1alpha1.Membership{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Reviewers[i3].Users")
+		}
+		mg.Spec.ForProvider.Reviewers[i3].Users = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.Reviewers[i3].Teams),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.InitProvider.Reviewers[i3].TeamsRefs,
+			Selector:      mg.Spec.InitProvider.Reviewers[i3].TeamsSelector,
+			To: reference.To{
+				List:    &v1alpha1.TeamList{},
+				Managed: &v1alpha1.Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Teams")
+		}
+		mg.Spec.InitProvider.Reviewers[i3].Teams = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.Reviewers[i3].TeamsRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Reviewers); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.Reviewers[i3].Users),
+			Extract:       reference.ExternalName(),
+			References:    mg.Spec.InitProvider.Reviewers[i3].UsersRefs,
+			Selector:      mg.Spec.InitProvider.Reviewers[i3].UsersSelector,
+			To: reference.To{
+				List:    &v1alpha1.MembershipList{},
+				Managed: &v1alpha1.Membership{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Reviewers[i3].Users")
+		}
+		mg.Spec.InitProvider.Reviewers[i3].Users = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.Reviewers[i3].UsersRefs = mrsp.ResolvedReferences
+
+	}
 
 	return nil
 }
@@ -641,6 +725,80 @@ func (mg *TagProtection) ResolveReferences(ctx context.Context, c client.Reader)
 	}
 	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this TeamRepository.
+func (mg *TeamRepository) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Repository),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.RepositoryRef,
+		Selector:     mg.Spec.ForProvider.RepositorySelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Repository")
+	}
+	mg.Spec.ForProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RepositoryRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.TeamIDRef,
+		Selector:     mg.Spec.ForProvider.TeamIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TeamID")
+	}
+	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Repository),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.RepositoryRef,
+		Selector:     mg.Spec.InitProvider.RepositorySelector,
+		To: reference.To{
+			List:    &RepositoryList{},
+			Managed: &Repository{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Repository")
+	}
+	mg.Spec.InitProvider.Repository = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RepositoryRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.TeamIDRef,
+		Selector:     mg.Spec.InitProvider.TeamIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TeamID")
+	}
+	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamIDRef = rsp.ResolvedReference
 
 	return nil
 }

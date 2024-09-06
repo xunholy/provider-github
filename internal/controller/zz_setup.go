@@ -26,22 +26,22 @@ import (
 	branchprotectionv3 "github.com/xunholy/provider-github/internal/controller/repo/branchprotectionv3"
 	defaultbranch "github.com/xunholy/provider-github/internal/controller/repo/defaultbranch"
 	deploykey "github.com/xunholy/provider-github/internal/controller/repo/deploykey"
-	environment "github.com/xunholy/provider-github/internal/controller/repo/environment"
 	environmentdeploymentpolicy "github.com/xunholy/provider-github/internal/controller/repo/environmentdeploymentpolicy"
 	issuelabels "github.com/xunholy/provider-github/internal/controller/repo/issuelabels"
 	pullrequest "github.com/xunholy/provider-github/internal/controller/repo/pullrequest"
 	repository "github.com/xunholy/provider-github/internal/controller/repo/repository"
+	repositoryenvironment "github.com/xunholy/provider-github/internal/controller/repo/repositoryenvironment"
 	repositoryfile "github.com/xunholy/provider-github/internal/controller/repo/repositoryfile"
 	repositoryruleset "github.com/xunholy/provider-github/internal/controller/repo/repositoryruleset"
 	repositorywebhook "github.com/xunholy/provider-github/internal/controller/repo/repositorywebhook"
 	tagprotection "github.com/xunholy/provider-github/internal/controller/repo/tagprotection"
+	teamrepository "github.com/xunholy/provider-github/internal/controller/repo/teamrepository"
 	groupmapping "github.com/xunholy/provider-github/internal/controller/team/groupmapping"
 	members "github.com/xunholy/provider-github/internal/controller/team/members"
 	membership "github.com/xunholy/provider-github/internal/controller/team/membership"
 	settings "github.com/xunholy/provider-github/internal/controller/team/settings"
 	syncgroupmapping "github.com/xunholy/provider-github/internal/controller/team/syncgroupmapping"
 	team "github.com/xunholy/provider-github/internal/controller/team/team"
-	teamrepository "github.com/xunholy/provider-github/internal/controller/team/teamrepository"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -65,15 +65,16 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		branchprotectionv3.Setup,
 		defaultbranch.Setup,
 		deploykey.Setup,
-		environment.Setup,
 		environmentdeploymentpolicy.Setup,
 		issuelabels.Setup,
 		pullrequest.Setup,
 		repository.Setup,
+		repositoryenvironment.Setup,
 		repositoryfile.Setup,
 		repositoryruleset.Setup,
 		repositorywebhook.Setup,
 		tagprotection.Setup,
+		teamrepository.Setup,
 		groupmapping.Setup,
 		members.Setup,
 		membership.Setup,
@@ -81,7 +82,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		settings.Setup,
 		syncgroupmapping.Setup,
 		team.Setup,
-		teamrepository.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

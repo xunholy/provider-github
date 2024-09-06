@@ -111,8 +111,8 @@ func (mg *EnvironmentSecret) ResolveReferences(ctx context.Context, c client.Rea
 		Reference:    mg.Spec.ForProvider.EnvironmentRef,
 		Selector:     mg.Spec.ForProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &v1alpha1.EnvironmentList{},
-			Managed: &v1alpha1.Environment{},
+			List:    &v1alpha1.RepositoryEnvironmentList{},
+			Managed: &v1alpha1.RepositoryEnvironment{},
 		},
 	})
 	if err != nil {
@@ -143,8 +143,8 @@ func (mg *EnvironmentSecret) ResolveReferences(ctx context.Context, c client.Rea
 		Reference:    mg.Spec.InitProvider.EnvironmentRef,
 		Selector:     mg.Spec.InitProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &v1alpha1.EnvironmentList{},
-			Managed: &v1alpha1.Environment{},
+			List:    &v1alpha1.RepositoryEnvironmentList{},
+			Managed: &v1alpha1.RepositoryEnvironment{},
 		},
 	})
 	if err != nil {
@@ -185,8 +185,8 @@ func (mg *EnvironmentVariable) ResolveReferences(ctx context.Context, c client.R
 		Reference:    mg.Spec.ForProvider.EnvironmentRef,
 		Selector:     mg.Spec.ForProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &v1alpha1.EnvironmentList{},
-			Managed: &v1alpha1.Environment{},
+			List:    &v1alpha1.RepositoryEnvironmentList{},
+			Managed: &v1alpha1.RepositoryEnvironment{},
 		},
 	})
 	if err != nil {
@@ -217,8 +217,8 @@ func (mg *EnvironmentVariable) ResolveReferences(ctx context.Context, c client.R
 		Reference:    mg.Spec.InitProvider.EnvironmentRef,
 		Selector:     mg.Spec.InitProvider.EnvironmentSelector,
 		To: reference.To{
-			List:    &v1alpha1.EnvironmentList{},
-			Managed: &v1alpha1.Environment{},
+			List:    &v1alpha1.RepositoryEnvironmentList{},
+			Managed: &v1alpha1.RepositoryEnvironment{},
 		},
 	})
 	if err != nil {

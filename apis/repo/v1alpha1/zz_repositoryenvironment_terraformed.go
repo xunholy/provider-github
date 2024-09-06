@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this Environment
-func (mg *Environment) GetTerraformResourceType() string {
+// GetTerraformResourceType returns Terraform resource type for this RepositoryEnvironment
+func (mg *RepositoryEnvironment) GetTerraformResourceType() string {
 	return "github_repository_environment"
 }
 
-// GetConnectionDetailsMapping for this Environment
-func (tr *Environment) GetConnectionDetailsMapping() map[string]string {
+// GetConnectionDetailsMapping for this RepositoryEnvironment
+func (tr *RepositoryEnvironment) GetConnectionDetailsMapping() map[string]string {
 	return nil
 }
 
-// GetObservation of this Environment
-func (tr *Environment) GetObservation() (map[string]any, error) {
+// GetObservation of this RepositoryEnvironment
+func (tr *RepositoryEnvironment) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *Environment) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this Environment
-func (tr *Environment) SetObservation(obs map[string]any) error {
+// SetObservation for this RepositoryEnvironment
+func (tr *RepositoryEnvironment) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *Environment) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this Environment
-func (tr *Environment) GetID() string {
+// GetID returns ID of underlying Terraform resource of this RepositoryEnvironment
+func (tr *RepositoryEnvironment) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this Environment
-func (tr *Environment) GetParameters() (map[string]any, error) {
+// GetParameters of this RepositoryEnvironment
+func (tr *RepositoryEnvironment) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *Environment) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this Environment
-func (tr *Environment) SetParameters(params map[string]any) error {
+// SetParameters for this RepositoryEnvironment
+func (tr *RepositoryEnvironment) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *Environment) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this Environment
-func (tr *Environment) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this RepositoryEnvironment
+func (tr *RepositoryEnvironment) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *Environment) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this Environment
-func (tr *Environment) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this RepositoryEnvironment
+func (tr *RepositoryEnvironment) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *Environment) GetMergedParameters(shouldMergeInitProvider bool) (map[st
 	return params, nil
 }
 
-// LateInitialize this Environment using its observed tfState.
+// LateInitialize this RepositoryEnvironment using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *Environment) LateInitialize(attrs []byte) (bool, error) {
-	params := &EnvironmentParameters{}
+func (tr *RepositoryEnvironment) LateInitialize(attrs []byte) (bool, error) {
+	params := &RepositoryEnvironmentParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *Environment) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *Environment) GetTerraformSchemaVersion() int {
+func (tr *RepositoryEnvironment) GetTerraformSchemaVersion() int {
 	return 0
 }
