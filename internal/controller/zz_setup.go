@@ -35,13 +35,13 @@ import (
 	repositoryruleset "github.com/xunholy/provider-github/internal/controller/repo/repositoryruleset"
 	repositorywebhook "github.com/xunholy/provider-github/internal/controller/repo/repositorywebhook"
 	tagprotection "github.com/xunholy/provider-github/internal/controller/repo/tagprotection"
+	teamrepository "github.com/xunholy/provider-github/internal/controller/repo/teamrepository"
 	groupmapping "github.com/xunholy/provider-github/internal/controller/team/groupmapping"
 	members "github.com/xunholy/provider-github/internal/controller/team/members"
 	membership "github.com/xunholy/provider-github/internal/controller/team/membership"
 	settings "github.com/xunholy/provider-github/internal/controller/team/settings"
 	syncgroupmapping "github.com/xunholy/provider-github/internal/controller/team/syncgroupmapping"
 	team "github.com/xunholy/provider-github/internal/controller/team/team"
-	teamrepository "github.com/xunholy/provider-github/internal/controller/team/teamrepository"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -74,6 +74,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		repositoryruleset.Setup,
 		repositorywebhook.Setup,
 		tagprotection.Setup,
+		teamrepository.Setup,
 		groupmapping.Setup,
 		members.Setup,
 		membership.Setup,
@@ -81,7 +82,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		settings.Setup,
 		syncgroupmapping.Setup,
 		team.Setup,
-		teamrepository.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

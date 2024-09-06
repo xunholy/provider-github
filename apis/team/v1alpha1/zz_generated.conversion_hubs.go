@@ -23,6 +23,3 @@ func (tr *SyncGroupMapping) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Team) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *TeamRepository) Hub() {}

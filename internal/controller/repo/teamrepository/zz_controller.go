@@ -21,7 +21,7 @@ import (
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/xunholy/provider-github/apis/team/v1alpha1"
+	v1alpha1 "github.com/xunholy/provider-github/apis/repo/v1alpha1"
 	features "github.com/xunholy/provider-github/internal/features"
 )
 
