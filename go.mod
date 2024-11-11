@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	dario.cat/mergo v1.0.0
-	github.com/crossplane/crossplane-runtime v1.16.0
+	github.com/crossplane/crossplane-runtime v1.18.0
 	github.com/crossplane/crossplane-tools v0.0.0-20240522174801-1ad3d4c87f21
 	github.com/crossplane/upjet v1.4.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.30.0
