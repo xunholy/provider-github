@@ -1,3 +1,5 @@
+🚨 ARCHIVED 🚨 - All relevant code has been merged upstream https://github.com/crossplane-contrib/provider-upjet-github/pull/138
+
 # Provider GitHub
 
 `provider-github` is a [Crossplane](https://crossplane.io/) provider that
